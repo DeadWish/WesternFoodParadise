@@ -1,0 +1,136 @@
+@import "/template/login/index.wxss";
+
+.container{
+  min-height: 100%;
+  overflow: hidden;
+  overflow-y: hidden;
+}
+
+.userinfo {
+  box-sizing: border-box;
+  background-color: #fde432;
+  padding: 20rpx;
+  width: 750rpx;
+  height: 230rpx;
+}
+
+.userinfo-avatar {
+  float: left;
+	width: 160rpx;
+	height: 160rpx;
+  margin: 10rpx;
+  margin-right: 30rpx;
+  border-style: double;
+  border-color: #d6ba1b;
+  border-radius: 52%;
+  box-shadow:10rpx 10rpx 30rpx #d6ba1b;
+  overflow: hidden;
+}
+
+.name-box {
+  float: left;
+}
+
+.userinfo-nickname {
+  line-height: 70rpx;
+  font-size: 18px;
+  margin-top: 30rpx;
+}
+
+.userinfo-phone {
+  line-height: 70rpx;
+  font-size: 18px;
+  margin-bottom: 30rpx;
+}
+
+.bind-phone-bt {
+  padding-left: 10rpx;
+  padding-right: 10rpx;
+  height: 70rpx;
+  line-height: 70rpx;
+  font-size: 18px;
+  margin-bottom: 30rpx;
+  background-color: rgb(252, 246, 159);
+}
+
+.asset {
+  display: flex;
+  border-top: 1px solid #eee;
+  padding-top:20rpx;
+  padding-bottom:20rpx;
+}
+.asset .item {
+  display: flex;
+  flex-direction: column;
+  width:250rpx;
+  text-align: center;
+  font-size: 13px;
+  line-height: 20px;
+  color:#333;
+}
+.asset .right {
+  border-left: 1px solid #eee;
+}
+
+.version {
+  width:100%;
+  height: 40rpx;
+	line-height: 40rpx;
+	font-size: 24rpx;
+	text-align: center;  
+  padding: 40rpx;
+}
+
+.my-item{
+    width: 100%;
+    background: url(https://cdn.it120.cc/images/weappshop/arrow-right.png) no-repeat 750rpx center;
+    background-size: 16rpx auto,750rpx auto;
+    border-bottom: 1px solid #eee;
+    height: 80rpx;
+    line-height: 80rpx;
+    padding-left: 100rpx;
+    font-size:14px;
+}
+
+.about{
+    width: 100%;
+    background: url(https://cdn.it120.cc/images/weappshop/arrow-right.png) no-repeat 750rpx center;
+    background-size: 16rpx auto,750rpx auto;
+    margin: 20rpx 0; 
+    height: 80rpx;
+    line-height: 80rpx;
+    padding-left: 100rpx;
+}
+
+.order-shortcut {
+  display: flex;
+  padding-top: 20rpx;
+  padding-bottom: 20rpx;
+}
+.order-shortcut .item {
+  display: flex;
+  flex-direction: column;
+  width: 150rpx;
+  text-align: center;
+}
+.order-shortcut .item .icon {
+  width: 67rpx;
+  height: 67rpx;
+  margin-left: 45rpx;
+}
+.order-shortcut .item .text {
+  font-size: 12px;
+}
+.to-authorize{
+  border: none;
+  padding: 0rpx;
+  margin: 0rpx;
+  background: none;
+  height: auto;
+  line-height: auto;
+}
+/* 绑定手机号 */
+.bind-phone-number{
+  margin: 20rpx;
+  width: 100%;
+}
