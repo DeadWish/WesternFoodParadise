@@ -75,7 +75,6 @@ App({
             that.globalData.recharge_amount_min = res.data.value;
           }
         })
-        
       }
     })
     WXAPI.scoreRules({
@@ -139,12 +138,10 @@ App({
             } else {
               return true;
             }
-            }).catch(function (err) {
-              console.log(err);
-            });
-
-          console.log(isSendedClickUser, '是否领取过红包');
-
+          }).catch(function (err) {
+            console.log(err);
+          });
+          
           //2.没有发就发,发完以后记录,记录以后就弹窗
           if (!isSendedClickUser) {
             collection.add({
@@ -156,28 +153,28 @@ App({
               }
             }).then(function () {
                 //WXAPI.发送50减3的红包
-                WXAPI.fetchCoupons({
-                  pwd: '不告诉任何人fx9SJyr7YEUce',
-                  token: wx.getStorageSync('token'),
-                }).then(fetchCouopnsSuccess => {
-                  console.log(fetchCouopnsSuccess, '发送红包后返回')
-                  if (fetchCouopnsSuccess.code == 0) {
-                    //弹窗通知
-                    wx.showModal({
-                      title: '恭喜你！',
-                      content: '获得' + shareUserName + '分享的3元红包，满50元可用！',
-                      showCancel: false,
-                      confirmText: "去看看",
-                      success: function () {
-                        wx.redirectTo({
-                          url: "/pages/coupons/index?activeIndex=1"
-                        })
-                      }
-                    })
-                  }
-                }).catch(function (err) {
-                    console.log(err);
-                });
+                // WXAPI.fetchCoupons({
+                //   pwd: '不告诉任何人fx9SJyr7YEUce',
+                //   token: wx.getStorageSync('token'),
+                // }).then(fetchCouopnsSuccess => {
+                //   console.log(fetchCouopnsSuccess, '发送红包后返回')
+                //   if (fetchCouopnsSuccess.code == 0) {
+                //     //弹窗通知
+                //     wx.showModal({
+                //       title: '恭喜你！',
+                //       content: '获得' + shareUserName + '分享的3元红包，满50元可用！',
+                //       showCancel: false,
+                //       confirmText: "去看看",
+                //       success: function () {
+                //         wx.redirectTo({
+                //           url: "/pages/coupons/index?activeIndex=1"
+                //         })
+                //       }
+                //     })
+                //   }
+                // }).catch(function (err) {
+                //     console.log(err);
+                // });
               }).catch(function (err) {
                 console.log(err);
               })

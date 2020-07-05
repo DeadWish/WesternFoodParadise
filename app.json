@@ -33,7 +33,7 @@
   ],
   "window": {
     "backgroundTextStyle": "light",
-    "navigationBarBackgroundColor": "#fde432",
+    "navigationBarBackgroundColor": "#f3a503",
     "navigationBarTitleText": "WeChat",
     "navigationBarTextStyle": "black",
     "onReachBottomDistance": 50
@@ -70,8 +70,6 @@
       }
     ]
   },
-  "navigateToMiniProgramAppIdList": [
-    "wx56c8f077de74b07c"
-  ],
+
   "sitemapLocation": "sitemap.json"
 }

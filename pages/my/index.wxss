@@ -8,7 +8,7 @@
 
 .userinfo {
   box-sizing: border-box;
-  background-color: #fde432;
+  background-color: #f3a503;
   padding: 20rpx;
   width: 750rpx;
   height: 230rpx;

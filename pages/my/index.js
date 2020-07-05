@@ -26,27 +26,12 @@ Page({
 	},	
   onShow() {
     const _this = this
-    let levelImageSrc;
-    switch (app.globalData.vipLevel) {
-      case 1:
-        levelImageSrc = "https://dcdn.it120.cc/2020/05/16/cec1f219-7074-4a2f-bb24-fa97202f22af.png";
-        break;
-      case 2:
-        levelImageSrc = "https://dcdn.it120.cc/2020/05/16/03c8e56c-5f67-4248-b961-88726477b5f7.png";
-        break;
-      case 3:
-        levelImageSrc = "https://dcdn.it120.cc/2020/05/16/4ba93bd1-ec6f-437c-8e07-43d21aec4ed9.png";
-        break;
-      case 4:
-        levelImageSrc = "https://dcdn.it120.cc/2020/05/16/f8da66ab-e165-4a25-a438-787e5e4e31ba.png";
-        break;  
-    }
+    
     this.setData({
       version: CONFIG.version,
       vipLevel: app.globalData.vipLevel,
-      levelImageSrc: levelImageSrc,
     })
-    console.log(app.globalData);
+
     AUTH.checkHasLogined().then(isLogined => {
       this.setData({
         wxlogin: isLogined
@@ -79,7 +64,7 @@ Page({
   aboutUs : function () {
     wx.showModal({
       title: '关于我们',
-      content: '【出岛以后】让你尝到原汁原味的海南岛特产！',
+      content: '【西食天堂】',
       showCancel:false
     })
   },
@@ -101,7 +86,7 @@ Page({
     var that = this;
     WXAPI.bindMobileWxa(wx.getStorageSync('token'), e.detail.encryptedData, e.detail.iv).then(function (res) {
       if (res.code === 10002) {
-        this.setData({
+        that.setData({
           wxlogin: false
         })
         return
@@ -129,10 +114,28 @@ Page({
         let _data = {}
         _data.apiUserInfoMap = res.data
         wx.setStorageSync('isSeller', res.data.base.isSeller);
+
         if (res.data.base.mobile) {
           _data.userMobile = res.data.base.mobile
         }
+
         if (res.data.userLevel) {
+          let levelImageSrc;
+          switch (res.data.userLevel.name) {
+            case "钻石会员":
+              levelImageSrc = "https://dcdn.it120.cc/2020/05/16/cec1f219-7074-4a2f-bb24-fa97202f22af.png";
+              break;
+            case "黄金会员":
+              levelImageSrc = "https://dcdn.it120.cc/2020/05/16/03c8e56c-5f67-4248-b961-88726477b5f7.png";
+              break;
+            case "白银会员":
+              levelImageSrc = "https://dcdn.it120.cc/2020/05/16/4ba93bd1-ec6f-437c-8e07-43d21aec4ed9.png";
+              break;
+            case "青铜会员":
+              levelImageSrc = "https://dcdn.it120.cc/2020/05/16/f8da66ab-e165-4a25-a438-787e5e4e31ba.png";
+              break;
+          }
+          _data.levelImageSrc = levelImageSrc
           _data.vipName = res.data.userLevel.name
         } else {
           _data.vipName = ""
@@ -193,7 +196,7 @@ Page({
   getVipDetail() {
     wx.showModal({
       title: '会员说明',
-      content: "订单交易成功满199元，升级白银会员，享受全场购物9.8折优惠（特价产品除外）\r\n订单交易成功满599元，升级黄金会员，享受全场购物9.6折优惠（特价产品除外）\r\n订单交易成功满1099元，升级钻石会员，享受全场购物9.5折优惠（特价产品除外）",
+      content: "",
       showCancel:false,
 
     })

@@ -30,7 +30,7 @@ page {
 
 .category-container .category.active {
   background: #fff;
-  border-left: 4rpx solid #fde432;
+  border-left: 4rpx solid #f3a503;
   border-top: 1rpx solid #efefef;
   border-bottom: 1rpx solid #efefef;
 }
@@ -45,7 +45,7 @@ page {
 }
 
 .category-container .category .name.active {
-  color: #fde432;
+  color: #f3a503;
   font-weight: bold;
 }
 
