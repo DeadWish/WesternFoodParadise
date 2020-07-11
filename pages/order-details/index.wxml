@@ -126,7 +126,7 @@
       </view>
     </view>
         <!-- 未付款和关闭的订单不可以分享，其他的都有分享按钮 -->
-    <view wx:if="{{orderDetail.orderInfo.status!=-1 && orderDetail.orderInfo.status!=0}}" class="share_container">
+    <!-- <view wx:if="{{orderDetail.orderInfo.status!=-1 && orderDetail.orderInfo.status!=0}}" class="share_container">
         <button class="btn-share" open-type="share">分享送红包</button>
       <view style="text-align:center">
         <view>
@@ -136,7 +136,7 @@
           20个红包，先到先得！
         </view>
       </view>
-    </view>
+    </view> -->
 
     
 

@@ -103,6 +103,7 @@ App({
       })
       //
       let isFromOrderShare = e && e.query && e.query.inviter_id && e.query.share_order_number;
+      isFromOrderShare = false;
       if (isFromOrderShare) {
         wx.setStorageSync('referrer', e.query.inviter_id)
         let orderId = e.query.share_order_number;

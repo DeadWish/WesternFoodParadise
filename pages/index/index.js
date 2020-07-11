@@ -137,7 +137,8 @@ Page({
   },
   onShow: function(e){
     // 获取购物车数据，显示TabBarBadge
-    TOOLS.showTabBarBadge();
+    TOOLS.showTabBarBadge()
+    this.miaoshaGoods()
   },
   onPageScroll(e) {
     let scrollTop = this.data.scrollTop
@@ -289,5 +290,24 @@ Page({
         })
       }
     })
-  }
+  },
+  async miaoshaGoods(){
+    const res = await WXAPI.goods({
+      miaosha: true
+    })
+    if (res.code == 0) {
+      res.data.forEach(ele => {
+        const _now = new Date().getTime()
+        if (ele.dateStart) {
+          ele.dateStartInt = new Date(ele.dateStart.replace(/-/g, '/')).getTime() - _now
+        }
+        if (ele.dateEnd) {
+          ele.dateEndInt = new Date(ele.dateEnd.replace(/-/g, '/')).getTime() -_now
+        }
+      })
+      this.setData({
+        miaoshaGoods: res.data
+      })
+    }
+  },
 })

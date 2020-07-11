@@ -13,7 +13,6 @@
     "pages/wuliu/index",
     "pages/my/index",
     "pages/notice/show",
-    "pages/recharge/index",
     "pages/withdraw/index",
     "pages/kanjia/index",
     "pages/score-excharge/index",
@@ -71,5 +70,16 @@
     ]
   },
 
-  "sitemapLocation": "sitemap.json"
+  "sitemapLocation": "sitemap.json",
+  "usingComponents": {
+    "van-notice-bar": "@vant/weapp/notice-bar/index",
+    "van-search": "@vant/weapp/search/index",
+    "van-divider": "@vant/weapp/divider/index",
+    "van-icon": "@vant/weapp/icon/index",
+    "van-count-down": "@vant/weapp/count-down/index",
+    "van-button": "@vant/weapp/button/index",
+    "van-cell": "@vant/weapp/cell/index",
+    "van-cell-group": "@vant/weapp/cell-group/index",
+    "van-tag": "@vant/weapp/tag/index"
+  }
 }
