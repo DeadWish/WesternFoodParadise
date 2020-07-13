@@ -186,7 +186,7 @@ page{
     width:240rpx;
     text-align: center;
     line-height: 100rpx;
-    background-color: #e64340;
+    background-color: #ffd800;
     font-size:32rpx;
     color:#ffffff;
 }

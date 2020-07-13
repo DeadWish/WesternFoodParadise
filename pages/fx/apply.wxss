@@ -17,6 +17,6 @@
 
 .kefu-qrcode-image {
   width: 300rpx;
-  height: 300rpx;
+  height: 399rpx;
   border-radius: 5px;
 }

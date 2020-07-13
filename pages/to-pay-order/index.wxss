@@ -176,7 +176,7 @@ form{
     text-align: center;
     height: 100%;
     line-height: 100rpx;
-    background-color: #e64340;
+    background-color: #ffd800;
     font-size:32rpx;
     color:#ffffff;
     border-radius: 0;

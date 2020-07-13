@@ -64,7 +64,7 @@ Page({
   aboutUs : function () {
     wx.showModal({
       title: '关于我们',
-      content: '【西食天堂】',
+      content: 'Our purpose is to provide quality and certified imported food in China at a fair price. \r\n地道西餐食材店。',
       showCancel:false
     })
   },
@@ -196,9 +196,8 @@ Page({
   getVipDetail() {
     wx.showModal({
       title: '会员说明',
-      content: "",
+      content: '累计购满1800可升级为白银吃货，可享受9.8折吃货折扣\r\n累计购满3800可升级为黄金吃货，可享受9.6折吃货折扣\r\n累计购满6800可升级为钻石吃货，可享受9.5折吃货折扣\r\n（特价商品除外）\r\n\r\nBuy over 1800RMB in total to enjoy the "Silver Foodie" discount of 2%r\nBuy over 3800RMB in total to enjoy the "Gold Foodie" discount of 4%\r\nBuy over 6800RMB in total to enjoy the "Diamond Foodie" discount of 5%\r\n(Special offers do not apply)',
       showCancel:false,
-
     })
   },
 })
