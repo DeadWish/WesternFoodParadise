@@ -50,8 +50,8 @@ function wxpay(type, money, orderId, redirectUrl, data) {
           })
           wx.requestSubscribeMessage({
             tmplIds: [
-              '_zwDSIqsnqjawvTymPOyKJ5m-xOOshCqxwoGuQ-mkjo',
-              'CMdHW6NUtX-fiDw6KOpZoOov8EEOYgdQ-g-n_OGnyQk'
+              'jkl8sASXcnV7cEKs4h9j4QcGGZMnqGoCEVyvE7E3Ul4',
+              'CiZjUhOOoVO7ho3u4GLbxdTUdhFZ-vGuqNa0z5LyJgU'
             ],
             success(res) {
               // console.log('成功获取到权限')

@@ -172,7 +172,7 @@ swiper-item image {
   width: 250rpx;
   height: 100%;
   line-height: 100rpx;
-  background-color: yellow;
+  background-color: #ffd800;
   /* color:#000; */
   font-size: 34rpx;
 }
@@ -181,7 +181,7 @@ swiper-item image {
   height: 100%;
   width: 250rpx;
   line-height: 100rpx;
-  background-color: #ffd800;/*ffd800
+  background-color: #f1a83b;/*ffd800
   /* color:#000; */
   font-size: 34rpx;
 }
@@ -312,7 +312,7 @@ swiper-item image {
   line-height: 89rpx;
   font-size:34rpx;
   color:#000;
-  background-color: #ffd800;
+  background-color: #f1a83b;
 }
 .buy-num-box .num-box .hui{
   background-color: #f5f5f9;

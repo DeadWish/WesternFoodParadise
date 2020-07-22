@@ -4,7 +4,7 @@
   width: 750rpx;  
   padding-top:50rpx;
   height: 150rpx;
-  background-color: #e85654;
+  background-color: #f1a83b;
   text-align: center;
   font-size: 14px;
   line-height: 30px;

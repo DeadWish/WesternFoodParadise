@@ -97,9 +97,9 @@ Page({
   goCreateOrder(){
     wx.requestSubscribeMessage({
       tmplIds: [
-        'QsOsqGyDg4cmJPBHnTeTFRQ6A1L8ejFHOkVdqMd9maQ',
-        'ID39FWD3s3IBS5PEVk0wx2ztoeT15j56cgXiGPAVHtE',
-        'zyBUCxNVhyGRgXHo721X46l7P0QuMGxKb8ZpxST-tsc'
+        '1IyX6N7zmb1x21DxNJOmuZ1UVMWmsrGVzrfnafg1GQM',
+        'LJu8kJqLmCdd2jUEeBJ1RES1nDjM4gGBkE3XjXndVbo',
+        'A_gdPa2sfktTJioZ3RCGsY6QJTRgYlKKlhOVZxDL8_Q'
         ],
       success(res) {
         // console.log('成功获取到权限')
