@@ -1,6 +1,8 @@
 const WXAPI = require('apifm-wxapi')
 const CONFIG = require('config.js')
 const AUTH = require('utils/auth')
+const i18n = require('utils/i18n');
+
 App({
   onLaunch: function(e) {
     //初始化云开发环境
@@ -85,6 +87,9 @@ App({
       }
     })
     //判断
+
+    //多语言
+    wx.setStorageSync('LanguageMap', i18n._t())
   },
   goStartIndexPage: function() {
     setTimeout(function() {

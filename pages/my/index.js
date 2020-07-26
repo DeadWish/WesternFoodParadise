@@ -3,6 +3,8 @@ const CONFIG = require('../../config.js')
 const WXAPI = require('apifm-wxapi')
 const AUTH = require('../../utils/auth')
 const TOOLS = require('../../utils/tools.js')
+const i18n = require('../../utils/i18n');  //路径可能做相应调整
+const _ = i18n._; //翻译函数
 
 Page({
 	data: {
@@ -20,19 +22,12 @@ Page({
     } else {
       rechargeOpen = false
     }
+
     this.setData({
-      rechargeOpen: rechargeOpen
+      rechargeOpen: rechargeOpen,
+      languageArray: ['中文', 'English'],
+      languageIndex: i18n.getLanguageIndex()
     })
-    // 登录页面切换中英文需要
-    if (base.getLanguage() == 'zh_CN') {
-      this.setData({
-        language: 'English',
-      })
-    } else {
-      this.setData({
-        language: '中文',
-      })
-    }
 	},	
   onShow() {
     const _this = this
@@ -53,6 +48,8 @@ Page({
     })
     // 获取购物车数据，显示TabBarBadge
     TOOLS.showTabBarBadge();
+
+    this.setI18nInfo();
   },
   onGotUserInfo(e){
     if (!e.detail.userInfo) {
@@ -211,15 +208,32 @@ Page({
     })
   },
   switchLanguage: function() {
-    if (base.getLanguage() == 'zh_CN'){
-      console.log('切换至英文');
+    if (i18n.getLanguage() == 'zh_CN'){
       wx.setStorageSync('Language', 'en'); // 利用本地缓存存放用户中英文选项
     }else{
-      console.log('切换至中文');
       wx.setStorageSync('Language', 'zh_CN');
     };
     wx.navigateTo({
       url: 'index',
     });
   },
+  bindPickerChange: function(e) {
+    if (e.detail.value == 0) {
+      wx.setStorageSync('Language', 'zh_CN');
+    } else {
+      wx.setStorageSync('Language', 'en');
+    }
+    wx.setStorageSync('LanguageMap', i18n._t());
+
+    this.setData({
+      languageIndex: e.detail.value
+    });
+
+    this.onShow()
+  },
+  setI18nInfo: function() {
+    this.setData({
+      _t: wx.getStorageSync('LanguageMap')
+    })
+  }
 })

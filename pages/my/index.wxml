@@ -72,9 +72,22 @@
   <block wx:if="{{vipLevel > 0}}">
   <view style="height:15rpx;background: #eee;width:100%;"></view>
   <!-- 这里先把分销商隐藏了 -->
- <view class="my-item" wx:if="{{!apiUserInfoMap.base.isSeller}}">
+
+  <view class="my-item-no-navigator">
+    <view>当前语言</view>
+    <view class="weui-cell__bd">
+      <picker bindchange="bindPickerChange" value="{{languageIndex}}" range="{{languageArray}}">
+        <view class="weui-input right-picker-input">{{languageArray[languageIndex]}}</view>
+      </picker>
+    </view>
+  </view>
+
+  <view style="height:15rpx;background: #eee;width:100%;"></view>
+
+  <view class="my-item" wx:if="{{!apiUserInfoMap.base.isSeller}}">
     <navigator url="/pages/fx/apply-status" hover-class="navigator-hover">申请成为分享官</navigator>
   </view>
+
   <view class="my-item" wx:if="{{apiUserInfoMap.base.isSeller}}">
     <navigator url="/pages/fx/apply-status" hover-class="navigator-hover">分享好友</navigator>
   </view>
@@ -118,10 +131,10 @@
 
   <view style="height:15rpx;background: #eee;width:100%;"></view>
   <view class="my-item" bindtap="aboutUs">
-    关于我们
+    {{ _t["关于我们"] || '关于我们' }}
   </view>
   <view wx:if="{{apiUserInfoMap}}" class="my-item" bindtap="loginOut">
-    退出登录
+    {{ _t["退出登录"] || '退出登录' }}
   </view>
   <view style="height:15rpx;background: #eee;width:100%;"></view>
 </view>
