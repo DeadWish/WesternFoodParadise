@@ -70,9 +70,10 @@ Page({
   },
   aboutUs : function () {
     wx.showModal({
-      title: '关于我们',
-      content: 'Our purpose is to provide quality and certified imported food in China at a fair price. \r\n地道西餐食材店。',
-      showCancel:false
+      title: i18n._('关于我们'),
+      content: i18n._('地道西餐食材店。'),
+      showCancel:false,
+      confirmText:i18n._('确定')
     })
   },
   loginOut(){
@@ -84,9 +85,10 @@ Page({
   getPhoneNumber: function(e) {
     if (!e.detail.errMsg || e.detail.errMsg != "getPhoneNumber:ok") {
       wx.showModal({
-        title: '提示',
+        title: i18n._('提示'),
         content: e.detail.errMsg,
-        showCancel: false
+        showCancel: false,
+        confirmText:i18n._('确定')
       })
       return;
     }
@@ -100,15 +102,15 @@ Page({
       }
       if (res.code == 0) {
         wx.showToast({
-          title: '绑定成功',
+          title: i18n._('绑定成功'),
           icon: 'success',
           duration: 2000
         })
         that.getUserApiInfo();
       } else {
         wx.showModal({
-          title: '提示',
-          content: '绑定失败',
+          title: i18n._('提示'),
+          content: i18n._('绑定失败'),
           showCancel: false
         })
       }
@@ -193,7 +195,7 @@ Page({
   processLogin(e) {
     if (!e.detail.userInfo) {
       wx.showToast({
-        title: '已取消',
+        title: i18n._('已取消'),
         icon: 'none',
       })
       return;
@@ -201,21 +203,18 @@ Page({
     AUTH.register(this);
   },
   getVipDetail() {
+    let content = "累计购满1800可升级为白银吃货，可享受9.8折吃货折扣\r\n累计购满3800可升级为黄金吃货，可享受9.6折吃货折扣\r\n累计购满6800可升级为钻石吃货，可享受9.5折吃货折扣\r\n（特价商品除外）";
+    if (i18n.getLanguage() == 'en') {
+      content = 'Buy over 1800RMB in total to enjoy the "Silver Foodie" discount of 2%\r\nBuy over 3800RMB in total to enjoy the "Gold Foodie" discount of 4%\r\nBuy over 6800RMB in total to enjoy the "Diamond Foodie" discount of 5%\r\n(Special offers do not apply)';
+    }
+
     wx.showModal({
-      title: '会员说明',
-      content: '累计购满1800可升级为白银吃货，可享受9.8折吃货折扣\r\n累计购满3800可升级为黄金吃货，可享受9.6折吃货折扣\r\n累计购满6800可升级为钻石吃货，可享受9.5折吃货折扣\r\n（特价商品除外）\r\n\r\nBuy over 1800RMB in total to enjoy the "Silver Foodie" discount of 2%\r\nBuy over 3800RMB in total to enjoy the "Gold Foodie" discount of 4%\r\nBuy over 6800RMB in total to enjoy the "Diamond Foodie" discount of 5%\r\n(Special offers do not apply)',
+      title: i18n._('会员说明'),
+      content: content,
       showCancel:false,
+      confirmText: i18n._('确定'),
     })
-  },
-  switchLanguage: function() {
-    if (i18n.getLanguage() == 'zh_CN'){
-      wx.setStorageSync('Language', 'en'); // 利用本地缓存存放用户中英文选项
-    }else{
-      wx.setStorageSync('Language', 'zh_CN');
-    };
-    wx.navigateTo({
-      url: 'index',
-    });
+
   },
   bindPickerChange: function(e) {
     if (e.detail.value == 0) {
@@ -224,7 +223,7 @@ Page({
       wx.setStorageSync('Language', 'en');
     }
     wx.setStorageSync('LanguageMap', i18n._t());
-
+    
     this.setData({
       languageIndex: e.detail.value
     });
@@ -232,8 +231,12 @@ Page({
     this.onShow()
   },
   setI18nInfo: function() {
+    i18n.setTabBarLanguage()
+    wx.setNavigationBarTitle({
+      title: i18n._('个人中心'),
+    })
     this.setData({
       _t: wx.getStorageSync('LanguageMap')
     })
-  }
+  },
 })

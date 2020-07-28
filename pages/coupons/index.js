@@ -1,5 +1,6 @@
 const WXAPI = require('apifm-wxapi')
 const AUTH = require('../../utils/auth')
+const i18n = require('../../utils/i18n')
 
 var sliderWidth = 96; // 需要设置slider的宽度，用于计算中间位置
 Page({
@@ -8,11 +9,9 @@ Page({
    * 页面的初始数据
    */
   data: {
-    tabs: ["可领券", "已领券", "已失效"],
     activeIndex: 0,
     sliderOffset: 0,
     sliderLeft: 0,
-
     couponInput: '', // 输入的优惠券码
     sysCoupons: [], //可领取的优惠券列表
     myCoupons: [], //已领取的可用优惠券列表
@@ -40,17 +39,6 @@ Page({
       }
     });
   },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
   onShow: function () {
     this.sysCoupons()    
     AUTH.checkHasLogined().then(isLogined => {
@@ -59,39 +47,15 @@ Page({
         this.invalidCoupons()
       }
     })
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-
+    this.setI18nInfo();
+    this.setData({
+      tabs: [i18n._("可领券"), i18n._("已领券"),i18n._("已失效")],
+    })
   },
   tabClick: function (e) {
     this.setData({
       sliderOffset: e.currentTarget.offsetLeft,
-      activeIndex: e.currentTarget.id
+      activeIndex: e.currentTarget.id,
     });
   },
   getCounponByPwd(e){ // 通过优惠码领取优惠券
@@ -99,7 +63,7 @@ Page({
     const pwd = e.detail.value.pwd;
     if(!pwd){
       wx.showToast({
-        title: '请输入优惠码',
+        title: i18n._('请输入优惠码'),
         icon: 'none'
       })
       return
@@ -110,44 +74,45 @@ Page({
     }).then(function (res) {
       if (res.code == 20001 || res.code == 20002) {
         wx.showToast({
-          title: '您来晚了',
+          title: i18n._('您来晚了'),
           icon: 'none'
         })
         return;
       }
       if (res.code == 20003) {
         wx.showToast({
-          title: '你领过了，别贪心哦~',
+          title: i18n._('你领过了，别贪心哦'),
           icon: 'none'
         })
         return;
       }
       if (res.code == 30001) {
         wx.showToast({
-          title: '您的积分不足',
+          title: i18n._('您的积分不足'),
           icon: 'none'
         })
         return;
       }
       if (res.code == 20004) {
         wx.showToast({
-          title: '已过期~',
+          title: i18n._('已过期'),
           icon: 'none'
         })
         return;
       }
       if (res.code == 700) {
         wx.showToast({
-          title: '优惠码不存在',
+          title: i18n._('优惠码不存在'),
           icon: 'none'
         })
         return;
       }
       if (res.code == 0) {
         wx.showModal({
-          title: '成功',
-          content: '您已成功领取优惠券，赶快去下单使用吧！',
-          showCancel: false
+          title: i18n._('成功'),
+          content: i18n._('您已成功领取优惠券，赶快去下单使用吧！'),
+          showCancel: false,
+          confirmText: i18n._('确认')
         })
         _this.setData({
           couponInput: ''
@@ -174,7 +139,7 @@ Page({
     const that = this
     if (e.currentTarget.dataset.pwd) {
       wx.showToast({
-        title: '请通过优惠券码兑换',
+        title: i18n._('请通过优惠券码兑换'),
         icon: 'none'
       })
       return
@@ -185,45 +150,48 @@ Page({
     }).then(function (res) {
       if (res.code == 20001 || res.code == 20002) {
         wx.showModal({
-          title: '错误',
-          content: '来晚了',
+          title: i18n._('错误'),
+          content: i18n._('来晚了'),
           showCancel: false
         })
         return;
       }
       if (res.code == 20003) {
         wx.showModal({
-          title: '错误',
-          content: '你领过了，别贪心哦~',
-          showCancel: false
+          title: i18n._('错误'),
+          content: i18n._('你领过了，别贪心哦'),
+          showCancel: false,
+          confirmText: i18n._('确定')
         })
         return;
       }
       if (res.code == 30001) {
         wx.showModal({
-          title: '错误',
-          content: '您的积分不足',
-          showCancel: false
+          title: i18n._('错误'),
+          content: i18n._('您的积分不足'),
+          showCancel: false,
+          confirmText: i18n._('确定')
         })
         return;
       }
       if (res.code == 20004) {
         wx.showModal({
-          title: '错误',
-          content: '已过期~',
-          showCancel: false
+          title: i18n._('错误'),
+          content: i18n._('已过期'),
+          showCancel: false,
+          confirmText: i18n._('确定')
         })
         return;
       }
       if (res.code == 0) {
         wx.showToast({
-          title: '领取成功，赶紧去下单吧~',
+          title: i18n._('领取成功，赶紧去下单吧'),
           icon: 'success',
           duration: 2000
         })
       } else {
         wx.showModal({
-          title: '错误',
+          title: i18n._('错误'),
           content: res.msg,
           showCancel: false
         })
@@ -254,6 +222,15 @@ Page({
           invalidCoupons: res.data
         })
       }
+    })
+  },
+  setI18nInfo: function() {
+    i18n.setTabBarLanguage()
+    wx.setNavigationBarTitle({
+      title: i18n._('领券中心'),
+    })
+    this.setData({
+      _t: wx.getStorageSync('LanguageMap')
     })
   },
 })

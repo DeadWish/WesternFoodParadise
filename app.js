@@ -1,7 +1,7 @@
 const WXAPI = require('apifm-wxapi')
 const CONFIG = require('config.js')
 const AUTH = require('utils/auth')
-const i18n = require('utils/i18n');
+const i18n = require('./utils/i18n');
 
 App({
   onLaunch: function(e) {
@@ -88,8 +88,6 @@ App({
     })
     //判断
 
-    //多语言
-    wx.setStorageSync('LanguageMap', i18n._t())
   },
   goStartIndexPage: function() {
     setTimeout(function() {
@@ -99,6 +97,9 @@ App({
     }, 1000)
   },
   onShow (e) {
+      //多语言
+      wx.setStorageSync('LanguageMap', i18n._t())
+
       this.globalData.launchOption = e
       // 自动登录
       AUTH.checkHasLogined().then(isLogined => {

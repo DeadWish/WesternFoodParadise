@@ -1,5 +1,6 @@
 const WXAPI = require('apifm-wxapi')
 const AUTH = require('../../utils/auth')
+const i18n = require('../../utils/i18n')
 
 const app = getApp()
 Page({
@@ -54,6 +55,7 @@ Page({
         })
       }
     })
+    this.setI18nInfo()
   },
   initShippingAddress: function() {
     var that = this;
@@ -68,6 +70,14 @@ Page({
         });
       }
     })
-  }
-
+  },
+  setI18nInfo: function() {
+    i18n.setTabBarLanguage()
+    wx.setNavigationBarTitle({
+      title: i18n._('收货地址'),
+    })
+    this.setData({
+      _t: wx.getStorageSync('LanguageMap')
+    })
+  },
 })

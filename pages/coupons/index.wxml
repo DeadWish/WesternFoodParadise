@@ -15,16 +15,16 @@
             <form bindsubmit="getCounponByPwd" report-submit="true">
               <view class="weui-cell weui-cell_input weui-cell_vcode">
                 <view class="weui-cell__bd">
-                  <input name="pwd" class="weui-input" placeholder="请输入优惠码" value='{{couponInput}}' />
+                  <input name="pwd" class="weui-input" placeholder="{{ _t['请输入优惠码'] || '请输入优惠码'}}" value='{{couponInput}}' />
                 </view>
                 <view class="weui-cell__ft">
-                  <button class="weui-btn duihuang-btn" type="default" plain="true" formType="submit">兑换优惠券</button>
+                  <button class="weui-btn duihuang-btn" type="default" plain="true" formType="submit">{{ _t['兑换'] || '兑换'}}</button>
                 </view>
               </view>
             </form>
           </view>
           <view wx:if="{{sysCoupons.length <= 0}}" class="weui-loadmore weui-loadmore_line" style='margin-top:200rpx;'>
-            <view class="weui-loadmore__tips weui-loadmore__tips_in-line">暂无可领取优惠券</view>
+            <view class="weui-loadmore__tips weui-loadmore__tips_in-line">{{ _t['暂无可用优惠券'] || '暂无可用优惠券'}}</view>
           </view>
           <view class="weui-panel" wx:for="{{sysCoupons}}" wx:key="*key" wx:if="{{!item.pwd}}">
             <view class="weui-panel__hd">{{item.name}}</view>
@@ -41,7 +41,7 @@
                     <view wx:if="{{item.dateEndType == 1}}"> 领取 {{item.dateEndDays}} 天内有效 </view>
                   </view>
                   <view class="weui-media-box__info__meta" style='float:right;'>
-                    <button class="weui-btn mini-btn" type="warn" size="mini" bindtap="getCounpon" data-id="{{item.id}}">立即领取</button>
+                    <button class="weui-btn mini-btn" type="warn" size="mini" bindtap="getCounpon" data-id="{{item.id}}">{{ _t['立即领取'] || '立即领取'}}</button>
                   </view>
                 </view>
               </view>
@@ -50,7 +50,8 @@
         </view>
         <view class="weui-tab__content" hidden="{{activeIndex != 1}}">
           <view wx:if="{{myCoupons.length <= 0}}" class="weui-loadmore weui-loadmore_line" style='margin-top:200rpx;'>
-            <view class="weui-loadmore__tips weui-loadmore__tips_in-line">暂无可用优惠券</view>
+            <view class="weui-loadmore__tips weui-loadmore__tips_in-line">
+            {{ _t['暂无可用优惠券'] || '暂无可用优惠券'}}</view>
           </view>
           <view class="weui-panel" wx:for="{{myCoupons}}" wx:key="*key">
             <view class="weui-panel__hd">{{item.name}}</view>
@@ -71,7 +72,7 @@
         </view>
         <view class="weui-tab__content" hidden="{{activeIndex != 2}}">
           <view wx:if="{{invalidCoupons.length <= 0}}" class="weui-loadmore weui-loadmore_line" style='margin-top:200rpx;'>
-            <view class="weui-loadmore__tips weui-loadmore__tips_in-line">暂无数据</view>
+            <view class="weui-loadmore__tips weui-loadmore__tips_in-line">{{ _t['暂无数据'] || '暂无数据'}}</view>
           </view>
           <view class="weui-panel" wx:for="{{invalidCoupons}}" wx:key="*key">
             <view class="weui-panel__hd">{{item.name}}</view>

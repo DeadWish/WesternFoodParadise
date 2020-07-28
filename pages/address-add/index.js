@@ -1,19 +1,27 @@
 const WXAPI = require('apifm-wxapi')
+const i18n = require('../../utils/i18n')
 //获取应用实例
 var app = getApp()
 Page({
   data: {
     pickerRegionRange: [],
     pickerSelect:[0, 0, 0],
-    showRegionStr: '请选择'
+    
+  },
+  onShow: function (e) {
+    this.setData({
+      showRegionStr: i18n._('请选择')
+    })
+    
+    this.setI18nInfo()
   },
   initRegionPicker () {
     WXAPI.province().then(res => {
       if (res.code === 0) {
         let _pickerRegionRange = []
         _pickerRegionRange.push(res.data)
-        _pickerRegionRange.push([{ name: '请选择' }])
-        _pickerRegionRange.push([{ name: '请选择' }])
+        _pickerRegionRange.push([{ name: i18n._('请选择') }])
+        _pickerRegionRange.push([{ name: i18n._('请选择') }])
         this.data.pickerRegionRange = _pickerRegionRange
         this.bindcolumnchange({ detail: { column: 0, value: 0 } })
       }
@@ -101,11 +109,11 @@ Page({
       return
     }
     if (column === 1) {
-      this.data.pickerRegionRange[2] = [{ name: '请选择' }]
+      this.data.pickerRegionRange[2] = [{ name: i18n._('请选择') }]
     }
     if (column === 0) {
-      this.data.pickerRegionRange[1] = [{ name: '请选择' }]
-      this.data.pickerRegionRange[2] = [{ name: '请选择' }]
+      this.data.pickerRegionRange[1] = [{ name: i18n._('请选择') }]
+      this.data.pickerRegionRange[2] = [{ name: i18n._('请选择') }]
     }
     // // 后面的数组全部清空
     // this.data.pickerRegionRange.splice(column+1)
@@ -126,35 +134,12 @@ Page({
     if (code == "") {
       code = "000000"
     }
-    if (linkMan == ""){
+    if (linkMan == "" || mobile == "" || (!this.data.pObject || !this.data.cObject) || address == ""){
       wx.showModal({
-        title: '提示',
-        content: '请填写联系人姓名',
-        showCancel:false
-      })
-      return
-    }
-    if (mobile == ""){
-      wx.showModal({
-        title: '提示',
-        content: '请填写手机号码',
-        showCancel:false
-      })
-      return
-    }
-    if (!this.data.pObject || !this.data.cObject){
-      wx.showModal({
-        title: '提示',
-        content: '请选择地区',
-        showCancel:false
-      })
-      return
-    }
-    if (address == ""){
-      wx.showModal({
-        title: '提示',
-        content: '请填写详细地址',
-        showCancel:false
+        title: i18n._('提示'),
+        content: i18n._('请填写完整'),
+        showCancel:false,
+        confirmText: i18n._('确定')
       })
       return
     }
@@ -198,9 +183,10 @@ Page({
         // 登录错误 
         wx.hideLoading();
         wx.showModal({
-          title: '失败',
+          title: i18n._('失败'),
           content: res.msg,
-          showCancel: false
+          showCancel: false,
+          confirmText: i18n._('确定')
         })
         return;
       }
@@ -223,9 +209,10 @@ Page({
           return;
         } else {
           wx.showModal({
-            title: '提示',
-            content: '无法获取快递地址数据',
-            showCancel: false
+            title: i18n._('提示'),
+            content: i18n._('无法获取快递地址数据'),
+            showCancel: false,
+            confirmText: i18n._('确定')
           })
         }
       })
@@ -235,15 +222,17 @@ Page({
     var that = this;
     var id = e.currentTarget.dataset.id;
     wx.showModal({
-      title: '提示',
-      content: '确定要删除该收货地址吗？',
+      title: i18n._('提示'),
+      content: i18n._('确定要删除该收货地址吗？'),
+      confirmText: i18n._('确定'),
+      cancelText: i18n._('取消'),
       success: function (res) {
         if (res.confirm) {
           WXAPI.deleteAddress(wx.getStorageSync('token'), id).then(function () {
             wx.navigateBack({})
           })
         } else {
-          console.log('用户点击取消')
+          // console.log('用户点击取消')
         }
       }
     })
@@ -259,5 +248,14 @@ Page({
         });
       }
     })
-  }
+  },
+  setI18nInfo: function() {
+    i18n.setTabBarLanguage()
+    wx.setNavigationBarTitle({
+      title: i18n._('新增收货地址'),
+    })
+    this.setData({
+      _t: wx.getStorageSync('LanguageMap')
+    })
+  },
 })

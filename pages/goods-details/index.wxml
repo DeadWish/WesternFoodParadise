@@ -203,7 +203,7 @@
     <view wx:if="{{goodsDetail.basicInfo.pingtuan}}" class="join-shop-cart" bindtap="tobuy">单独购买</view>
     <view wx:if="{{goodsDetail.basicInfo.pingtuan}}" class="now-buy" bindtap="toPingtuan">发起拼团</view>
   </view>
-  <view class="show-popup" hidden="{{hideShopPopup}}" catchtouchmove="true">
+  <view class="show-popup" hidden="{{hideShopPopup}}" >
     <view class="popup-mask" bindtap="closePopupTap"></view>
     <view class="popup-contents">
       <view class="pop-goods-info">
@@ -216,7 +216,10 @@
         </view>
         <view class="pop-goods-close" bindtap="closePopupTap"></view>
       </view>
-      <view class="size-label-box">
+      <scroll-view
+    scroll-y
+    style="height: 70%;max-height:70%"
+    class="size-label-box">
         <block wx:for="{{goodsDetail.properties}}" wx:for-item="property" wx:for-index="idx" wx:key="id">
           <view class="label">{{property.name}}</view>
           <view class="label-item-box">
@@ -226,7 +229,7 @@
             </view>
           </view>
         </block>
-      </view>
+      </scroll-view>
       <view class="buy-num-box">
         <view class="num-label">购买数量</view>
         <view class="num-box">

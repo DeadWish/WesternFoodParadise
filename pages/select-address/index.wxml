@@ -14,7 +14,7 @@
     </view>
     <view class="bottom-box-container safeAreaOldPaddingBttom safeAreaNewPaddingBttom">
       <view class="bottom-box">
-          <view class="add-btn" bindtap="addAddess">新增收货地址</view>
+          <view class="add-btn" bindtap="addAddess">{{_t['新增收货地址'] || '新增收货地址'}}</view>
       </view>
     </view>
 </view>

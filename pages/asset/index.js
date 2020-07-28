@@ -1,6 +1,7 @@
 const app = getApp()
 const WXAPI = require('apifm-wxapi')
 const AUTH = require('../../utils/auth')
+const i18n = require('../../utils/i18n')
 import ApifmLogin from '../../template/login/index.js';
 
 var sliderWidth = 96; // 需要设置slider的宽度，用于计算中间位置
@@ -19,7 +20,6 @@ Page({
     cashlogs: undefined,
 
     // tabs: ["资金明细", "提现记录", "押金记录"],
-    tabs: ["资金明细"],
     activeIndex: 0,
     sliderOffset: 0,
     sliderLeft: 0,
@@ -51,10 +51,14 @@ Page({
       rechargeOpen = false
     }
     
+    this.setData({
+      tabs: [i18n._("资金明细")],
+    })
+    
     if (wx.getStorageSync('isSeller')) {
       this.setData({
         rechargeOpen: rechargeOpen,
-        tabs: ["资金明细", "提现记录"],
+        tabs: [i18n._("资金明细"), i18n._("提现记录")],
         isSeller: true,
       })
     } else {
@@ -64,16 +68,6 @@ Page({
     }
   },
 
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
   onShow: function () {
     AUTH.checkHasLogined().then(isLogined => {
       this.setData({
@@ -82,6 +76,10 @@ Page({
       if (isLogined) {
         this.doneShow();
       }
+    })
+    this.setI18nInfo()
+    this.setData({
+      tabs: [i18n._("资金明细")],
     })
   },
   doneShow: function () {
@@ -96,7 +94,7 @@ Page({
     WXAPI.userAmount(token).then(function (res) {
       if (res.code == 700) {
         wx.showToast({
-          title: '当前账户存在异常',
+          title: i18n._('当前账户存在异常'),
           icon: 'none'
         })
         return
@@ -171,42 +169,6 @@ Page({
       }
     })
   },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-
-  },
-
   recharge: function (e) {
     wx.navigateTo({
       url: "/pages/recharge/index"
@@ -237,11 +199,20 @@ Page({
   processLogin(e){
     if (!e.detail.userInfo) {
       wx.showToast({
-        title: '已取消',
+        title: i18n._('已取消'),
         icon: 'none',
       })
       return;
     }
     AUTH.register(this);
+  },
+  setI18nInfo: function() {
+    i18n.setTabBarLanguage()
+    wx.setNavigationBarTitle({
+      title: i18n._('我的资产'),
+    })
+    this.setData({
+      _t: wx.getStorageSync('LanguageMap')
+    })
   },
 })
