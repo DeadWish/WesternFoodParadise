@@ -1,6 +1,7 @@
 // pages/category/category.js
 
 const WXAPI = require('apifm-wxapi')
+const i18n = require('../../utils/i18n')
 
 Page({
   /**
@@ -21,6 +22,9 @@ Page({
    */
   onLoad: function(options) {
     this.initData();
+  },
+  onShow : function (e) {
+    this.setI18nInfo()
   },
   initData() {
     let that = this;
@@ -110,5 +114,15 @@ Page({
       });
       that.getGoodsList();
     }
-  }
+  },
+  setI18nInfo: function() {
+    i18n.setTabBarLanguage()
+    wx.setNavigationBarTitle({
+      title: i18n._('分类'),
+    })
+    this.setData({
+      _t: wx.getStorageSync('LanguageMap'),
+      language: i18n.getLanguage()
+    })
+  },
 })

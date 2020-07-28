@@ -2,6 +2,7 @@ const app = getApp()
 const CONFIG = require('../../config.js')
 const WXAPI = require('apifm-wxapi')
 const AUTH = require('../../utils/auth')
+const i18n = require('../../utils/i18n')
 
 import imageUtil from '../../utils/image'
 
@@ -12,26 +13,10 @@ Page({
    */
   data: {
     wxlogin: true,
-
     applyStatus: -2, // -1 表示未申请，0 审核中 1 不通过 2 通过
     applyInfo: {},
     canvasHeight: 0,
-
     currentPages: undefined,
-  },
-
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad: function (options) {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-
   },
 
   /**
@@ -47,6 +32,7 @@ Page({
         this.doneShow();
       }
     })
+    this.setI18nInfo()
   },
   async doneShow() {
     const _this = this
@@ -123,33 +109,6 @@ Page({
       }
     })
   },
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-
-  },
 
   /**
    * 用户点击右上角分享
@@ -187,7 +146,7 @@ Page({
             wx.showModal({
               content: '二维码已保存到手机相册',
               showCancel: false,
-              confirmText: '知道了',
+              confirmText: i18n._('确定'),
               confirmColor: '#333'
             })
           },
@@ -215,11 +174,21 @@ Page({
   processLogin(e) {
     if (!e.detail.userInfo) {
       wx.showToast({
-        title: '已取消',
+        title: i18n._('已取消'),
         icon: 'none',
       })
       return;
     }
     AUTH.register(this);
+  },
+  setI18nInfo: function() {
+    i18n.setTabBarLanguage()
+    wx.setNavigationBarTitle({
+      title: i18n._('分销中心'),
+    })
+    this.setData({
+      _t: wx.getStorageSync('LanguageMap'),
+      language: i18n.getLanguage()
+    })
   },
 })

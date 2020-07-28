@@ -1,54 +1,65 @@
 <image class="logo" src="/images/fxad1.png" mode="widthFix" />
-<view class="weui-cells__title title">请填写申请信息</view>
+<view class="weui-cells__title title">{{_t['请填写申请信息'] || '请填写申请信息'}}</view>
 <view class="weui-cells weui-cells_after-title">
   <view wx:if="{{ userDetail && userDetail.referrer }}" class="weui-cell weui-cell_input">
     <view class="weui-cell__hd">
-      <view class="weui-label">邀请人</view>
+      <view class="weui-label">{{_t['邀请人'] || '邀请人'}}</view>
     </view>
     <view class="weui-cell">
       <view class="weui-cell__bd">
-        <input class="weui-input" value="{{userDetail.referrer.nick}} (请确认)" disabled style='color:red;' />
+        <input class="weui-input" value="{{userDetail.referrer.nick}}" disabled style='color:red;' />
       </view>
     </view>
   </view>
   <view class="weui-cell weui-cell_input">
     <view class="weui-cell__hd">
-      <view class="weui-label">姓名
+      <view class="weui-label">
+      {{_t['姓名'] || '姓名'}}
         <text style='color:red;'>*</text>
       </view>
     </view>
     <view class="weui-cell">
       <view class="weui-cell__bd">
-        <input bindinput="nameChange" class="weui-input" placeholder="请输入真实姓名" />
+        <input bindinput="nameChange" class="weui-input" placeholder="{{_t['请输入真实姓名'] || '请输入真实姓名'}}" />
       </view>
     </view>
   </view>
   <view class="weui-cell weui-cell_input">
     <view class="weui-cell__hd">
-      <view class="weui-label">手机
+      <view class="weui-label">{{_t['手机'] || '手机'}}
         <text style='color:red;'>*</text>
       </view>
     </view>
     <view class="weui-cell">
       <view class="weui-cell__bd">
-        <input bindinput="mobileChange" class="weui-input" placeholder="请输入手机号码" />
+        <input bindinput="mobileChange" class="weui-input" placeholder="{{_t['请输入手机号码'] || '请输入手机号码'}}" />
       </view>
     </view>
   </view>
 </view>
-<view class="weui-cells__tips">
-请添加我们的客服微信（westernfoodparadise）查询申请进度
-成功成为美食分享官后，您将会获得订单佣金收入。
+
+<view class="weui-cells__tips" wx:if='{{language == "en"}}'>
 Please add our customer service WeChat（westernfoodparadise）to check the application progress
 After becoming our "Foodie Ambassador", you can get commission on each product you sold.
 </view>
 
+<view class="weui-cells__tips" wx:else>
+请添加我们的客服微信（westernfoodparadise）查询申请进度
+成功成为美食分享官后，您将会获得订单佣金收入。
+</view>
+
 <view class="kefu-view">
   <image class="kefu-qrcode-image" src="/images/kefu_qrcode.jpeg" />
-  <view class="weui-tab__content_title">
+
+  <view class="weui-tab__content_title" wx:if='{{language == "en"}}'>
+    Scan the code to add WeChat
+  </view>
+
+  <view class="weui-tab__content_title" wx:else>
     截图扫码 添加微信
   </view>
+
 </view>
 <view class="weui-btn-area">
-  <button class="weui-btn" type="primary" bindtap="bindSave">申请成为分享官</button>
+  <button class="weui-btn" type="primary" bindtap="bindSave">{{_t['申请成为分享官'] || '申请成为分享官'}}</button>
 </view>

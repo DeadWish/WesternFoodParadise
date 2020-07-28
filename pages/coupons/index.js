@@ -1,6 +1,7 @@
 const WXAPI = require('apifm-wxapi')
 const AUTH = require('../../utils/auth')
-const i18n = require('../../utils/i18n')
+const i18n = require('../../utils/i18n');
+const { languageMap } = require('../../i18n/en');
 
 var sliderWidth = 96; // 需要设置slider的宽度，用于计算中间位置
 Page({
@@ -227,7 +228,7 @@ Page({
   setI18nInfo: function() {
     i18n.setTabBarLanguage()
     wx.setNavigationBarTitle({
-      title: i18n._('领券中心'),
+      title: i18n._('分类'),
     })
     this.setData({
       _t: wx.getStorageSync('LanguageMap')
