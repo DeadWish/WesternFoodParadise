@@ -1,5 +1,6 @@
 const app = getApp()
 const WXAPI = require('apifm-wxapi')
+const i18n = require('../../utils/i18n')
 
 var sliderWidth = 96;
 Page({
@@ -74,33 +75,16 @@ Page({
         })
       }
     })
+    this.setI18nInfo()
   },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-
+  setI18nInfo: function() {
+    i18n.setTabBarLanguage()
+    wx.setNavigationBarTitle({
+      title: i18n._('我的团队'),
+    })
+    this.setData({
+      _t: wx.getStorageSync('LanguageMap'),
+      language: i18n.getLanguage()
+    })
   },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-
-  }
 })

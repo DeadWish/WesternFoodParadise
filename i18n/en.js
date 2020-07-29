@@ -138,7 +138,24 @@ const languageMap = {
   "请填写申请信息" : "Please fill in the application information",
   "您还不是分销商，无法使用分销功能": "You are not a distributor yet and cannot use the distribution function",
   "感谢您的支持，请等待审核！" : "Thank you for your support. Please wait for the review!",
-  "很遗憾，您的申请没有通过" : "I'm sorry that your application was not approved"
+  "很遗憾，您的申请没有通过" : "I'm sorry that your application was not approved",
+  "返佣明细": "Commission",
+  "我的团队":"My group",
+  "元": "yuan",
+  "已到账" : "Have received",
+  "未到账" : "Not received",
+  "商品详情" : "Product details",
+  "选择" : "Select",
+  "成功帮TA砍掉" : "Succeeded in cutting five dollars for him",
+  "加载中" : "Loading",
+  "邀请您帮TA砍价" : "invite you to help him bargain",
+  "购买数量不能为0" : "The purchase quantity cannot be 0",
+  "请先选择规格尺寸" : "Please select the size first",
+  "请选择商品规格" : "Please select the product specifications",
+  "加入购物车成功" : "Add to cart successfully",
+  "保存图片" : "Save picture",
+  "发起拼团" : "A spell group",
+  "单独购买" : "Buy separately"
 }
 
 module.exports = {

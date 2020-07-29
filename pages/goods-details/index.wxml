@@ -184,24 +184,28 @@
     </view>
   </view>
   <view class='kjBuyButton' wx:if="{{curGoodsKanjia}}">
-    <button class="weui-btn" type="warn" bindtap="tobuy">用当前价购买</button>
+    <button class="weui-btn" type="warn" bindtap="tobuy">{{_t['用当前价购买'] || '用当前价购买'}}</button>
   </view>
   <view wx:if="{{!curGoodsKanjia}}" class="footer-box safeAreaOldPaddingBttom safeAreaNewPaddingBttom">
   <view class="homepage" bindtap="goHomepage">
-    <view style='position:absolute;bottom:10rpx;'>主页</view>
+    <view style='position:absolute;bottom:10rpx;'>{{_t['主页'] || '主页'}}</view>
   </view>
     <view class="contact">
       <contact-button style="opacity:0;position:absolute;" type="default-dark" session-from="weapp" size="27"></contact-button>
-      <view style='position:absolute;bottom:10rpx;'> 客服 </view>
+      <view style='position:absolute;bottom:10rpx;'> {{_t['客服'] || '客服'}} </view>
     </view>
     <view class="shop-cart-btn" bindtap="goShopCar">
       <view class="shop-num">({{shopNum}})</view>
-      <view style='position:absolute;bottom:10rpx;'> 购物车 </view>
+      <view style='position:absolute;bottom:10rpx;'> {{_t['购物车'] || '购物车'}} </view>
     </view>
-    <view wx:if="{{!goodsDetail.basicInfo.pingtuan}}" class="join-shop-cart" bindtap="toAddShopCar">加入购物车</view>
-    <view wx:if="{{!goodsDetail.basicInfo.pingtuan}}" class="now-buy" bindtap="tobuy">立即购买</view>
-    <view wx:if="{{goodsDetail.basicInfo.pingtuan}}" class="join-shop-cart" bindtap="tobuy">单独购买</view>
-    <view wx:if="{{goodsDetail.basicInfo.pingtuan}}" class="now-buy" bindtap="toPingtuan">发起拼团</view>
+    <view wx:if="{{!goodsDetail.basicInfo.pingtuan}}" class="join-shop-cart" bindtap="toAddShopCar">{{_t['加入购物车'] || '加入购物车'}}</view>
+    <view wx:if="{{!goodsDetail.basicInfo.pingtuan}}" class="now-buy" bindtap="tobuy">{{_t['立即购买'] || '立即购买'}}</view>
+    <view wx:if="{{goodsDetail.basicInfo.pingtuan}}" class="join-shop-cart" bindtap="tobuy">
+    {{_t['单独购买'] || '单独购买'}}
+    </view>
+    <view wx:if="{{goodsDetail.basicInfo.pingtuan}}" class="now-buy" bindtap="toPingtuan">
+    {{_t['发起拼团'] || '发起拼团'}}
+    </view>
   </view>
   <view class="show-popup" hidden="{{hideShopPopup}}" >
     <view class="popup-mask" bindtap="closePopupTap"></view>
@@ -231,7 +235,7 @@
         </block>
       </scroll-view>
       <view class="buy-num-box">
-        <view class="num-label">购买数量</view>
+        <view class="num-label">{{_t['购买数量'] || '购买数量'}}</view>
         <view class="num-box">
           <view class="num-jian {{buyNumber == buyNumMin ? 'hui': ''}}" bindtap="numJianTap">-</view>
           <view class="num-input">
@@ -241,10 +245,10 @@
         </view>
       </view>
       <view class="safeAreaOldPaddingBttom safeAreaNewPaddingBttom" wx:if="{{shopType =='addShopCar'}}" bindtap="addShopCar">
-        <view class="popup-join-btn">加入购物车</view>
+        <view class="popup-join-btn">{{_t['加入购物车'] || '加入购物车'}}</view>
       </view>
       <view class="safeAreaOldPaddingBttom safeAreaNewPaddingBttom" data-shopType="{{shopType}}" wx:if="{{shopType =='tobuy' || shopType =='toPingtuan'}}" bindtap="buyNow">
-        <view class="popup-join-btn">立即购买</view>
+        <view class="popup-join-btn">{{_t['立即购买'] || '立即购买'}}</view>
       </view>
     </view>
   </view>
@@ -257,7 +261,7 @@
     <canvas class="canvas" style="{{canvasstyle}}" canvas-id="firstCanvas"></canvas>
   </view>
   <view class="poster-btn">
-    <button type="default" size="mini" bindtap='_saveToMobile'> 保存图片 </button>
+    <button type="default" size="mini" bindtap='_saveToMobile'>{{_t['保存图片'] || '保存图片'}}</button>
   </view>
 </block>
 

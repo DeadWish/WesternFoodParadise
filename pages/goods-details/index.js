@@ -4,14 +4,14 @@ const WxParse = require('../../wxParse/wxParse.js');
 import ApifmShare from '../../template/share/index.js';
 const CONFIG = require('../../config.js')
 const AUTH = require('../../utils/auth')
-const SelectSizePrefix = "选择："
+const i18n = require('../../utils/i18n')
+const SelectSizePrefix = i18n._("选择") + ":"
 
 let videoAd = null; // 视频激励广告
 
 Page({
   data: {
     wxlogin: true,
-
     goodsDetail: {},
     hasMoreSelect: false,
     selectSize: SelectSizePrefix,
@@ -53,33 +53,10 @@ Page({
       }
     })
     this.reputation(e.id);
-    this.initAd();
-  },
-  initAd(){
-    setTimeout(()=>{
-      // 视频激励广告信息
-      if (wx.createRewardedVideoAd) {
-        videoAd = wx.createRewardedVideoAd({
-          adUnitId: 'adunit-12c4520ad7c062eb'
-        })
-        videoAd.onLoad(() => { })
-        videoAd.onError((err) => { })
-        videoAd.onClose((res) => {
-          if (res && res.isEnded) {
-            that.helpKanjiaDone();
-          } else {
-            wx.showModal({
-              title: '提示',
-              content: '完整观看完视频才能砍价',
-              showCancel: false
-            })
-          }
-        })
-      }
-    }, 500)
   },
   onShow (){
     this.getGoodsDetailAndKanjieInfo(this.data.goodsId)
+    this.setI18nInfo()
   },
   async getGoodsDetailAndKanjieInfo(goodsId) {
     const that = this;
@@ -263,8 +240,6 @@ Page({
         });
       })
     }
-
-
     this.setData({
       goodsDetail: that.data.goodsDetail,
       canSubmit: canSubmit
@@ -277,9 +252,10 @@ Page({
     if (this.data.goodsDetail.properties && !this.data.canSubmit) {
       if (!this.data.canSubmit) {
         wx.showModal({
-          title: '提示',
-          content: '请选择商品规格！',
-          showCancel: false
+          title: i18n._('提示'),
+          content: i18n._('请选择商品规格'),
+          showCancel: false,
+          confirmText : i18n._("确定")
         })
       }
       this.bindGuiGeTap();
@@ -287,9 +263,10 @@ Page({
     }
     if (this.data.buyNumber < 1) {
       wx.showModal({
-        title: '提示',
-        content: '购买数量不能为0！',
-        showCancel: false
+        title: i18n._('提示'),
+        content: i18n._('购买数量不能为0'),
+        showCancel: false,
+        confirmText : i18n._("确定")
       })
       return;
     }
@@ -308,9 +285,10 @@ Page({
     })
     this.closePopupTap();
     wx.showToast({
-      title: '加入购物车成功',
+      title: i18n._('加入购物车成功'),
       icon: 'success',
-      duration: 2000
+      duration: 2000,
+      confirmText : i18n._("确定")
     })
     //console.log(shopCarInfo);
 
@@ -326,24 +304,27 @@ Page({
     if (this.data.goodsDetail.properties && !this.data.canSubmit) {
       if (!this.data.canSubmit) {
         wx.showModal({
-          title: '提示',
-          content: '请选择商品规格！',
-          showCancel: false
+          title: i18n._('提示'),
+          content: i18n._('请选择商品规格'),
+          showCancel: false,
+          confirmText : i18n._("确定")
         })
       }
       this.bindGuiGeTap();
       wx.showModal({
-        title: '提示',
-        content: '请先选择规格尺寸哦~',
-        showCancel: false
+        title: i18n._('提示'),
+        content: i18n._('请先选择规格尺寸'),
+        showCancel: false,
+        confirmText : i18n._("确定")
       })
       return;
     }
     if (this.data.buyNumber < 1) {
       wx.showModal({
-        title: '提示',
-        content: '购买数量不能为0！',
-        showCancel: false
+        title: i18n._('提示'),
+        content: i18n._('购买数量不能为0'),
+        showCancel: false,
+        confirmText : i18n._("确定")
       })
       return;
     }
@@ -497,7 +478,7 @@ Page({
       }
     }
     if (this.data.kjJoinUid) {
-      _data.title = this.data.curKanjiaprogress.joiner.nick + '邀请您帮TA砍价'
+      _data.title = this.data.curKanjiaprogress.joiner.nick + i18n._('邀请您帮TA砍价')
       _data.path += '&kjJoinUid=' + this.data.kjJoinUid
     }
     return _data
@@ -554,7 +535,7 @@ Page({
       return;
     }
     wx.showLoading({
-      title: '加载中',
+      title: i18n._('加载中'),
       mask: true
     })
     WXAPI.kanjiaJoin(wx.getStorageSync('token'), _this.data.curGoodsKanjia.id).then(function(res) {
@@ -596,7 +577,7 @@ Page({
               videoAd.load()
                 .then(() => videoAd.show())
                 .catch(err => {
-                  console.log('激励视频 广告显示失败')
+                  // console.log('激励视频 广告显示失败')
                 })
             })
           }
@@ -621,9 +602,10 @@ Page({
         myHelpDetail: res.data
       });
       wx.showModal({
-        title: '成功',
-        content: '成功帮TA砍掉 ' + res.data.cutPrice + ' 元',
-        showCancel: false
+        title: i18n._('成功'),
+        content: i18n._('成功帮TA砍掉') + '￥' + res.data.cutPrice,
+        showCancel: false,
+        confirmText : i18n._("确定")
       })
       _this.getGoodsDetailAndKanjieInfo(_this.data.goodsDetail.basicInfo.id)
     })
@@ -636,11 +618,21 @@ Page({
   processLogin(e) {
     if (!e.detail.userInfo) {
       wx.showToast({
-        title: '已取消',
+        title: i18n._('已取消'),
         icon: 'none',
       })
       return;
     }
     AUTH.register(this);
+  },
+  setI18nInfo: function() {
+    i18n.setTabBarLanguage()
+    wx.setNavigationBarTitle({
+      title: i18n._('商品详情'),
+    })
+    this.setData({
+      _t: wx.getStorageSync('LanguageMap'),
+      language: i18n.getLanguage()
+    })
   },
 })

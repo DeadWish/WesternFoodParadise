@@ -1,5 +1,7 @@
 const app = getApp()
 const WXAPI = require('apifm-wxapi')
+const i18n = require('../../utils/i18n')
+
 Page({
 
   /**
@@ -9,19 +11,6 @@ Page({
     commisionLog: []
   },
 
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad: function (options) {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-
-  },
 
   /**
    * 生命周期函数--监听页面显示
@@ -41,33 +30,16 @@ Page({
         })
       }
     })
+    this.setI18nInfo()
   },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-
+  setI18nInfo: function() {
+    i18n.setTabBarLanguage()
+    wx.setNavigationBarTitle({
+      title: i18n._('返佣明细'),
+    })
+    this.setData({
+      _t: wx.getStorageSync('LanguageMap'),
+      language: i18n.getLanguage()
+    })
   },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-
-  }
 })
