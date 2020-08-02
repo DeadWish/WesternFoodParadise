@@ -1,6 +1,7 @@
 const WXAPI = require('apifm-wxapi')
 const CONFIG = require('../../config.js')
 const TOOLS = require('../../utils/tools.js')
+const i18n = require('../../utils/i18n')
 
 //获取应用实例
 var app = getApp()
@@ -139,6 +140,7 @@ Page({
     // 获取购物车数据，显示TabBarBadge
     TOOLS.showTabBarBadge()
     this.miaoshaGoods()
+    this.setI18nInfo()
   },
   onPageScroll(e) {
     let scrollTop = this.data.scrollTop
@@ -309,5 +311,15 @@ Page({
         miaoshaGoods: res.data
       })
     }
+  },
+  setI18nInfo: function() {
+    i18n.setTabBarLanguage()
+    wx.setNavigationBarTitle({
+      title: i18n._('西食天堂'),
+    })
+    this.setData({
+      _t: wx.getStorageSync('LanguageMap'),
+      language: i18n.getLanguage()
+    })
   },
 })

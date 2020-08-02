@@ -1,6 +1,7 @@
 const WXAPI = require('apifm-wxapi')
 const app = getApp();
 const WxParse = require('../../wxParse/wxParse.js');
+const i18n = require('../../utils/i18n')
 
 Page({
   data: {
@@ -39,11 +40,12 @@ Page({
         that.getKanjiaInfoMyHelp(that.data.kjId, that.data.joiner);
       }
     })
+    this.setI18nInfo()
   },
   onShareAppMessage: function() {
     var that = this;
     return {
-      title: "帮我来砍价",
+      title: i18n._("帮我来砍价"),
       path: "/pages/kanjia/index?kjId=" + that.data.kjId + "&joiner=" + that.data.joiner + "&id=" + that.data.id,
       success: function(res) {
         // 转发成功
@@ -68,9 +70,10 @@ Page({
     WXAPI.kanjiaDetail(kjid, joiner).then(function(res) {
       if (res.code != 0) {
         wx.showModal({
-          title: '错误',
+          title: i18n._("错误"),
           content: res.msg,
-          showCancel: false
+          showCancel: false,
+          confirmText: i18n._("确定")
         })
         return;
       }
@@ -95,19 +98,26 @@ Page({
     WXAPI.kanjiaHelp(wx.getStorageSync('token'), that.data.kjId, that.data.joiner, '').then(function(res) {
       if (res.code != 0) {
         wx.showModal({
-          title: '错误',
+          title: i18n._("错误"),
           content: res.msg,
-          showCancel: false
+          showCancel: false,
+          confirmText: i18n._("确定")
         })
         return;
       }
       that.setData({
         mykanjiaInfo: res.data
       });
+      let content =  '成功帮好友砍掉 ' + res.data.cutPrice + ' 元';
+      if (i18n.getLanguage() == 'en') {
+        content = "Successfully cut ￥" + res.data.cutPrice + 'off';
+      }
       wx.showModal({
-        title: '成功',
-        content: '成功帮好友砍掉 ' + res.data.cutPrice + ' 元',
-        showCancel: false
+        title: i18n._("成功"),
+        content: content,
+        showCancel: false,
+        confirmText: i18n._("确定")
+
       })
       that.getKanjiaInfo(that.data.kjId, that.data.joiner);
       that.getKanjiaInfoMyHelp(that.data.kjId, that.data.joiner);
@@ -116,6 +126,16 @@ Page({
   tobuy: function() {
     wx.navigateTo({
       url: "/pages/goods-details/index?id=" + this.data.kanjiaInfo.kanjiaInfo.goodsId + "&kjId=" + this.data.kanjiaInfo.kanjiaInfo.kjId
+    })
+  },
+  setI18nInfo: function() {
+    i18n.setTabBarLanguage()
+    wx.setNavigationBarTitle({
+      title: i18n._('砍价详情'),
+    })
+    this.setData({
+      _t: wx.getStorageSync('LanguageMap'),
+      language: i18n.getLanguage()
     })
   }
 })

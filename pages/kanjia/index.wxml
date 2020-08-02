@@ -20,8 +20,17 @@
    </view>
    <view class="goods-info">
         <view class="goods-title">{{goodsDetail.basicInfo.name}}</view>
-        <view class="goods-price" style="padding-left:35rpx;">当前价格: ¥ {{kanjiaInfo.kanjiaInfo.curPrice}} , 底价 ¥ {{kanjiaInfo.kanjiaInfo.minPrice}} </view>
-        <view class="goods-price" style="color:#999;font-size:24rpx;padding-left:10rpx;"> (转发帮 {{kanjiaInfo.joiner.nick}} 砍价) </view>
+        <view class="goods-price" style="padding-left:35rpx;">
+        {{_t['当前价格'] || '当前价格'}}: ¥ {{kanjiaInfo.kanjiaInfo.curPrice}} ,  {{_t['底价'] || '底价'}} ¥ {{kanjiaInfo.kanjiaInfo.minPrice}}
+         </view>
+
+         <view class="goods-price" style="color:#999;font-size:24rpx;padding-left:10rpx;">
+         (转发帮 {{kanjiaInfo.joiner.nick}} 砍价) 
+        </view>
+        
+        <view class="goods-price" style="color:#999;font-size:24rpx;padding-left:10rpx;">
+         (转发帮 {{kanjiaInfo.joiner.nick}} 砍价) 
+        </view>
     </view>
     <view class="goods-des-info">
         <view class="label-title">商品介绍</view>
@@ -43,10 +52,14 @@
         </view>
     </view>
     <view class="footer-box">        
-        <view class="now-buy" bindtap="helpKanjia" wx:if="{{!kanjiaInfoMyHelp}}">帮忙砍一刀</view>
-        <view class="now-buy-no" wx:if="{{kanjiaInfoMyHelp && kanjiaInfo&& kanjiaInfo.kanjiaInfo.uid != curuid}}">您已砍 {{kanjiaInfoMyHelp.cutPrice}} 元</view>
+        <view class="now-buy" bindtap="helpKanjia" wx:if="{{!kanjiaInfoMyHelp}}">
+        帮忙砍一刀
+        </view>
+        <view class="now-buy-no" wx:if="{{kanjiaInfoMyHelp && kanjiaInfo&& kanjiaInfo.kanjiaInfo.uid != curuid}}">您已砍 ￥{{kanjiaInfoMyHelp.cutPrice}} 元</view>
         <view class="now-buy-no" wx:if="{{kanjiaInfoMyHelp && kanjiaInfo&& kanjiaInfo.kanjiaInfo.uid == curuid}}">
-          <view class="now-buy" bindtap="tobuy" style='margin-left:0;width:750rpx;'>以当前价购买</view>
+          <view class="now-buy" bindtap="tobuy" style='margin-left:0;width:750rpx;'>
+          以当前价购买
+          </view>
         </view>
    </view>
 </view>
