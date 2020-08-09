@@ -1,6 +1,8 @@
 const app = getApp();
 const CONFIG = require('../../config.js')
 const WXAPI = require('apifm-wxapi')
+const i18n = require('../../utils/i18n')
+
 Page({
     data:{
       orderId:0,
@@ -23,7 +25,7 @@ Page({
           if (res.code == 0) {
             wx.setStorageSync('nick', res.data.base.nick)
           } else {
-            wx.setStorageSync('nick', '其他用户')
+            wx.setStorageSync('nick', i18n._('其他用户'))
           }
         });
       }
@@ -33,9 +35,10 @@ Page({
       WXAPI.orderDetail(wx.getStorageSync('token'), that.data.orderId).then(function (res) {
         if (res.code != 0) {
           wx.showModal({
-            title: '错误',
+            title: i18n._('错误'),
             content: res.msg,
-            showCancel: false
+            showCancel: false,
+            confirmText: i18n._('确定')
           })
           return;
         }
@@ -53,6 +56,8 @@ Page({
         allGoodsPrice: allprice,
         yunPrice: yunPrice
       });
+
+      this.setI18nInfo();
     },
     tapGoods: function (e) {
       if (e.currentTarget.dataset.id != 0) {
@@ -71,7 +76,7 @@ Page({
       let that = this;
       let orderId = this.data.orderId;
       wx.showModal({
-          title: '确认您已收到商品？',
+          title: i18n._('确认您已收到商品？'),
           content: '',
           success: function(res) {
             if (res.confirm) {
@@ -81,7 +86,9 @@ Page({
                 }
               })
             }
-          }
+          },
+          confirmText: i18n._('确定'),
+          cancelText: i18n._('取消'),
       })
     },
     submitReputation: function (e) {
@@ -113,11 +120,21 @@ Page({
         }
       })
     },
-  onShareAppMessage: function (res) {
-    return {
-      title: '推荐给你！20张优惠先到先得！',
-      path: 'pages/index/index?inviter_id=' + wx.getStorageSync('uid') + '&share_order_number=' + this.data.orderDetail.orderInfo.orderNumber + '&share_user_name=' + wx.getStorageSync('nick'),
-      imageUrl: this.data.orderDetail.goods[0].pic
-    }
-  }
+  // onShareAppMessage: function (res) {
+  //   return {
+  //     title: '推荐给你！20张优惠先到先得！',
+  //     path: 'pages/index/index?inviter_id=' + wx.getStorageSync('uid') + '&share_order_number=' + this.data.orderDetail.orderInfo.orderNumber + '&share_user_name=' + wx.getStorageSync('nick'),
+  //     imageUrl: this.data.orderDetail.goods[0].pic
+  //   }
+  // },
+  setI18nInfo: function() {
+    i18n.setTabBarLanguage()
+    wx.setNavigationBarTitle({
+      title: i18n._('订单详情'),
+    })
+    this.setData({
+      _t: wx.getStorageSync('LanguageMap'),
+      language: i18n.getLanguage()
+    })
+  },
 })

@@ -236,7 +236,8 @@ Page({
       title: i18n._('个人中心'),
     })
     this.setData({
-      _t: wx.getStorageSync('LanguageMap')
+      _t: wx.getStorageSync('LanguageMap'),
+      language: i18n.getLanguage()
     })
   },
 })

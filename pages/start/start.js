@@ -18,7 +18,7 @@ Page({
   goToIndex: function (e) {
     if (! app.globalData.isConnected) {
       wx.showToast({
-        title: '当前无网络',
+        title: 'No network',
         icon: 'none',
       })
     }

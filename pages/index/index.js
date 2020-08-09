@@ -312,6 +312,16 @@ Page({
       })
     }
   },
+  exchangeLanguage: function() {
+    if (i18n.getLanguage() == 'en') {
+      wx.setStorageSync('Language', 'zh_CN');
+    } else {
+      wx.setStorageSync('Language', 'en');
+    }
+    wx.setStorageSync('LanguageMap', i18n._t());
+
+    this.onShow()
+  },
   setI18nInfo: function() {
     i18n.setTabBarLanguage()
     wx.setNavigationBarTitle({

@@ -1,8 +1,8 @@
 <view class="score">
-  <view>可用积分</view>
+  <view>{{_t['可用积分'] || '可用积分'}}</view>
   <view>{{score}}</view>
 </view>
-<view class='no-data' wx:if="{{!cashlogs}}">暂无积分明细~</view>
+<view class='no-data' wx:if="{{!cashlogs}}">{{_t['暂无数据'] || '暂无数据'}}</view>
 <view class='cashlogs' wx:if="{{cashlogs}}" wx:for-items="{{cashlogs}}" wx:key="{{index}}">
   <view class='profile'>
     <view class='typeStr'>{{ item.typeStr }} {{ item.remark? '('+ item.remark +')' : '' }}</view>

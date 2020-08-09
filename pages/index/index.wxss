@@ -203,6 +203,7 @@ image {
   text-align: center;
   border-radius:50%;
   border: 1rpx solid #ddd;
+  line-height: 80rpx;
 }
 .coupons-float image {
   width:60rpx;
@@ -310,7 +311,7 @@ image {
 }
 .miaosha-price-btn .price {
   color: #e64340;
-  font-size: 40rpx;
+  font-size: 35rpx;
   margin-top: 12rpx;
 }
 .miaosha-price-btn .price text {
@@ -326,7 +327,7 @@ image {
   color: rgb(255, 246, 246);
   background-color: #e64340;
   font-size: 14px;
-  margin-left: 20px;
+  margin-left: 15px;
 }
 
 .miaosh-goto-btn-disabled {

@@ -2,13 +2,27 @@ const wxpay = require('../../utils/pay.js')
 const app = getApp()
 const WXAPI = require('apifm-wxapi')
 const AUTH = require('../../utils/auth')
+const i18n = require('../../utils/i18n')
 
 Page({
   data: {
-    statusType: ["待付款", "待发货", "待收货", "待评价", "已完成", ],
+    // statusType: ["待付款", "待发货", "待收货", "待评价", "已完成", ],
     hasRefund: false,
     currentType: 0,
     tabClass: ["", "", "", "", ""]
+  },
+  onShow: function (e) {
+
+    this.setData({
+      statusType: [
+        i18n._("待付款"),
+        i18n._("待发货"),
+        i18n._("待收货"),
+        i18n._("待评价"),
+        i18n._("已完成"),
+      ],
+    })
+    this.setI18nInfo()
   },
   statusTap: function(e) {
     const curType = e.currentTarget.dataset.index;
@@ -22,7 +36,7 @@ Page({
     const that = this;
     const orderId = e.currentTarget.dataset.id;
     wx.showModal({
-      title: '确定要取消该订单吗？',
+      title: i18n._('您确定要取消该订单吗？'),
       content: '',
       success: function(res) {
         if (res.confirm) {
@@ -32,7 +46,9 @@ Page({
             }
           })
         }
-      }
+      },
+      confirmText: i18n._('确定'),
+      cancelText: i18n._('取消'),
     })
   },
   refundApply (e) {
@@ -54,7 +70,7 @@ Page({
     // 防止连续点击--开始
     if (this.data.payButtonClicked) {
       wx.showToast({
-        title: '休息一下~',
+        title:  i18n._('休息一下'),
         icon: 'none'
       })
       return
@@ -73,41 +89,56 @@ Page({
         // 增加提示框
         if (res.data.score < needScore) {
           wx.showToast({
-            title: '您的积分不足，无法支付',
+            title: i18n._('您的积分不足，无法支付'),
             icon: 'none'
           })
           return;
         }
-        let _msg = '订单金额: ' + money +' 元'
-        if (res.data.balance > 0) {
-          _msg += ',可用余额为 ' + res.data.balance +' 元'
-          if (money - res.data.balance > 0) {
-            _msg += ',仍需微信支付 ' + (money - res.data.balance) + ' 元'
-          }          
+        let _msg = '';
+
+        if (i18n.getLanguage() == 'en') {
+          _msg = 'Order amount:￥' + money
+          if (res.data.balance > 0) {
+            _msg += ', available balance:￥' + res.data.balance
+            if (money - res.data.balance > 0) {
+              _msg += ', you still have to pay ￥' + (money - res.data.balance)
+            }          
+          }
+          if (needScore > 0) {
+            _msg += ', and subtract ' + money + ' points'
+          }
+
+        } else {
+          _msg = '订单金额: ' + money +' 元'
+          if (res.data.balance > 0) {
+            _msg += ',可用余额为 ' + res.data.balance +' 元'
+            if (money - res.data.balance > 0) {
+              _msg += ',仍需微信支付 ' + (money - res.data.balance) + ' 元'
+            }          
+          }
+          if (needScore > 0) {
+            _msg += ',并扣除 ' + money + ' 积分'
+          }
         }
-        if (needScore > 0) {
-          _msg += ',并扣除 ' + money + ' 积分'
-        }
+        
         money = money - res.data.balance
         wx.showModal({
-          title: '请确认支付',
+          title: i18n._('请确认支付'),
           content: _msg,
-          confirmText: "确认支付",
-          cancelText: "取消支付",
+          confirmText: i18n._('确定'),
+          cancelText: i18n._('取消'),
           success: function (res) {
-            console.log(res);
             if (res.confirm) {
               that._toPayTap(orderId, money)
-            } else {
-              console.log('用户点击取消支付')
             }
           }
         });
       } else {
         wx.showModal({
-          title: '错误',
-          content: '无法获取用户资金信息',
-          showCancel: false
+          title: i18n._('错误'),
+          content: i18n._('无法获取用户资金信息'),
+          showCancel: false,
+          confirmText: i18n._('确定'),
         })
       }
     })
@@ -200,7 +231,8 @@ Page({
           }
         })
       }
-    })
+    }),
+    this.setI18nInfo()
   },
   doneShow: function() {
     // 获取订单列表
@@ -229,20 +261,14 @@ Page({
       }
     })
   },
-  onHide: function() {
-    // 生命周期函数--监听页面隐藏
-
+  setI18nInfo: function() {
+    i18n.setTabBarLanguage()
+    wx.setNavigationBarTitle({
+      title: i18n._('订单列表'),
+    })
+    this.setData({
+      _t: wx.getStorageSync('LanguageMap'),
+      language: i18n.getLanguage()
+    })
   },
-  onUnload: function() {
-    // 生命周期函数--监听页面卸载
-
-  },
-  onPullDownRefresh: function() {
-    // 页面相关事件处理函数--监听用户下拉动作
-
-  },
-  onReachBottom: function() {
-    // 页面上拉触底事件的处理函数
-
-  }
 })

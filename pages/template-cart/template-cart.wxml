@@ -1,17 +1,17 @@
 <template name="no-goods">
     <view class="title-box">
-        购物车空空如也～
+       {{_t['购物车空空如也'] || '购物车空空如也'}}
     </view>
     <view class="to-index-btn" bindtap="toIndexPage">
-            去逛逛
+       {{_t['去逛逛'] || '去逛逛'}} 
     </view>
 </template>
 
 <template name="cart-goods-list">
     <view class="list-top">
-        <view class="label">西食天堂</view>
-        <view class="edit-btn" hidden="{{!saveHidden}}" bindtap="editTap">编辑</view>
-        <view class="edit-btn" hidden="{{saveHidden}}" bindtap="saveTap">完成</view>
+        <view class="label">{{_t['西食天堂'] || '西食天堂'}}</view>
+        <view class="edit-btn" hidden="{{!saveHidden}}" bindtap="editTap">{{_t['编辑'] || '编辑'}}</view>
+        <view class="edit-btn" hidden="{{saveHidden}}" bindtap="saveTap">{{_t['完成'] || '完成'}}</view>
     </view>
     <view class="goodsList">
         <view class="a-gooods" wx:for="{{list}}"  wx:key="{{index}}" >
@@ -32,17 +32,21 @@
                     </view>
                 </view>
                 <view class="delete-btn" data-index="{{index}}" catchtap="delItem">
-                  删除
+                  {{_t['删除'] || '删除'}}
                 </view>
             </view>
         </view>
     </view>
     <view class="jiesuan-box">
         <view class="left-price">
-            <view class="all-selected  {{allSelect?'active':''}}" bindtap="bindAllSelect">全选</view>
-            <view class="total" hidden="{{noSelect}}">合计：¥ {{totalPrice}} + {{totalScoreToPay}} 积分</view>
+            <view class="all-selected  {{allSelect?'active':''}}" bindtap="bindAllSelect">
+            {{_t['全选'] || '全选'}}
+            </view>
+            <view class="total" hidden="{{noSelect}}">
+            {{_t['合计'] || '合计'}}：¥ {{totalPrice}} + {{totalScoreToPay}} {{_t['积分'] || '积分'}}
+            </view>
         </view>
-        <view class="to-pay-btn {{noSelect?'no-select':''}}" hidden="{{!saveHidden}}" bindtap="toPayOrder">去结算</view>
-        <view class="to-pay-btn {{noSelect?'no-select':''}}" hidden="{{saveHidden}}" bindtap="deleteSelected">删除</view>
+        <view class="to-pay-btn {{noSelect?'no-select':''}}" hidden="{{!saveHidden}}" bindtap="toPayOrder">{{_t['去结算'] || '去结算'}}</view>
+        <view class="to-pay-btn {{noSelect?'no-select':''}}" hidden="{{saveHidden}}" bindtap="deleteSelected">{{_t['删除'] || '删除'}}</view>
     </view>
 </template>

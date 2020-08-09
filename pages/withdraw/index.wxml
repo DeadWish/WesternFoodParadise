@@ -2,13 +2,19 @@
     <form bindsubmit="bindSave" report-submit="true">
     <view class="form-box">
         <view class="row-wrap">
-            <view class="label">申请提现金额</view>
+            <view class="label">
+            {{_t['申请提现金额'] || '申请提现金额'}}
+            </view>
             <view class="label-right">
-                <input name="amount" class="input" type="digit" placeholder="填写提现金额"/>
+                <input name="amount" class="input" type="digit" placeholder="{{_t['填写提现金额'] || '填写提现金额'}}"/>
             </view>
         </view>
     </view>
-    <button type="warn" class="save-btn" formType="submit">申请提现</button>
-    <button type="default" class="cancel-btn" bindtap="bindCancel">取消</button>
+    <button type="warn" class="save-btn" formType="submit">
+    {{_t['申请提现'] || '申请提现'}}
+    </button>
+    <button type="default" class="cancel-btn" bindtap="bindCancel">
+    {{_t['取消'] || '取消'}}
+    </button>
     </form>
 </view>

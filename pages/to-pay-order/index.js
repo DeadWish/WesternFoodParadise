@@ -1,6 +1,7 @@
 const app = getApp()
 const WXAPI = require('apifm-wxapi')
 const AUTH = require('../../utils/auth')
+const i18n = require('../../utils/i18n')
 
 Page({
   data: {
@@ -33,7 +34,8 @@ Page({
           wxlogin: isLogined
         })
       }
-    })
+    });
+    this.setI18nInfo()
   },
   doneShow: function () {
     let allowSelfCollection = wx.getStorageSync('ALLOW_SELF_COLLECTION')
@@ -133,9 +135,11 @@ Page({
       if (!that.data.curAddressData) {
         wx.hideLoading();
         wx.showModal({
-          title: '错误',
-          content: '请先设置您的收货地址！',
-          showCancel: false
+          title: i18n._('错误'),
+          content: i18n._('请先设置您的收货地址！'),
+          showCancel: false,
+          confirmText:i18n._('确定')
+
         })
         return;
       }
@@ -161,9 +165,10 @@ Page({
     WXAPI.orderCreate(postData).then(function (res) {
       if (res.code != 0) {
         wx.showModal({
-          title: '错误',
+          title: i18n._('错误'),
           content: res.msg,
-          showCancel: false
+          showCancel: false,
+          confirmText:i18n._('确定')
         })
         return;
       }
@@ -322,11 +327,21 @@ Page({
   processLogin(e) {
     if (!e.detail.userInfo) {
       wx.showToast({
-        title: '已取消',
+        title: i18n._('已取消'),
         icon: 'none',
       })
       return;
     }
     AUTH.register(this);
+  },
+  setI18nInfo: function() {
+    i18n.setTabBarLanguage()
+    wx.setNavigationBarTitle({
+      title: i18n._('待付款订单'),
+    })
+    this.setData({
+      _t: wx.getStorageSync('LanguageMap'),
+      language: i18n.getLanguage()
+    })
   },
 })

@@ -77,7 +77,8 @@ Page({
       title: i18n._('收货地址'),
     })
     this.setData({
-      _t: wx.getStorageSync('LanguageMap')
+      _t: wx.getStorageSync('LanguageMap'),
+      language: i18n.getLanguage()
     })
   },
 })

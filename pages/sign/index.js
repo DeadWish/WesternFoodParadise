@@ -2,7 +2,7 @@ import initCalendar from '../../template/calendar/index';
 import { setTodoLabels } from '../../template/calendar/index';
 const WXAPI = require('apifm-wxapi')
 const AUTH = require('../../utils/auth')
-
+const i18n = require('../../utils/i18n')
 let interstitialAd = null
 
 Page({
@@ -29,37 +29,10 @@ Page({
   },
 
   /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-
-  },
-
-  /**
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    AUTH.checkHasLogined().then(isLogined => {
-      if (isLogined) {
-        this.doneShow();
-      } else {
-        wx.showModal({
-          title: '提示',
-          content: '本次操作需要您的登录授权',
-          cancelText: '暂不登录',
-          confirmText: '前往登录',
-          success(res) {
-            if (res.confirm) {
-              wx.switchTab({
-                url: "/pages/my/index"
-              })
-            } else {
-              wx.navigateBack()
-            }
-          }
-        })
-      }
-    })
+    this.setI18nInfo()
   },
   doneShow: function () {
     initCalendar({
@@ -76,14 +49,14 @@ Page({
         }
         if (currentSelect.hasTodo) {
           wx.showToast({
-            title: '今天已签到',
+            title: i18n._('今天已签到'),
             icon: 'none'
           })
           return
         }
         WXAPI.scoreSign(wx.getStorageSync('token')).then(r => {
           wx.showToast({
-            title: '签到成功',
+            title: i18n._('签到成功'),
             icon: 'none'
           })
           setTodoLabels({
@@ -93,7 +66,7 @@ Page({
               year: currentSelect.year,
               month: currentSelect.month,
               day: currentSelect.day,
-              todoText: '已签到'
+              todoText: i18n._('已签到')
             }],
           });
         })
@@ -112,52 +85,21 @@ Page({
               year: parseInt(_data.split("-")[0]),
               month: parseInt(_data.split("-")[1]),
               day: parseInt(_data.split("-")[2]),
-              todoText: '已签到'
+              todoText: i18n._('已签到')
             }],
           });
         })
       }
     })    
-    // 显示广告
-    if (interstitialAd) {
-      interstitialAd.show().catch((err) => {
-        console.error(err)
-      })
-    }
   },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-
+  setI18nInfo: function() {
+    i18n.setTabBarLanguage()
+    wx.setNavigationBarTitle({
+      title: i18n._('每日签到'),
+    })
+    this.setData({
+      _t: wx.getStorageSync('LanguageMap'),
+      language: i18n.getLanguage()
+    })
   },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-
-  }
 })

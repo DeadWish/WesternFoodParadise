@@ -1,4 +1,6 @@
 const WXAPI = require('apifm-wxapi')
+const i18n = require('../../utils/i18n')
+
 Page({
   data: {
     orderId: 1,
@@ -7,32 +9,7 @@ Page({
     refundApplyDetail: undefined,
 
     type: 0,
-    typeItems: [
-      { name: '我要退款(无需退货)', value: '0', checked: true },
-      { name: '我要退货退款', value: '1' },
-      { name: '我要换货', value: '2' },
-    ],
-
-    logisticsStatus:0,
-    logisticsStatusItems: [
-      { name: '未收到货', value: '0', checked: true },
-      { name: '已收到货', value: '1' }
-    ],
-
-    reasons: [
-      "不喜欢/不想要", 
-      "空包裹", 
-      "未按约定时间发货",
-      "快递/物流一直未送达",
-      "货物破损已拒签",
-      "退运费",
-      "规格尺寸与商品页面描述不符",
-      "功能/效果不符",
-      "质量问题",
-      "少件/漏发",
-      "包装/商品破损",
-      "发票问题",
-      ],
+    
     reasonIndex: 0,
 
     files: [],
@@ -52,7 +29,66 @@ Page({
           refundApplyDetail: res.data[0]  // baseInfo, pics
         })
       }
-    })
+    });
+
+    let typeItemName1 = '我要退款(无需退货)';
+    let typeItemName2 = '我要退货退款';
+    let typeItemName3 = '我要换货';
+    let logisticsStatusItem1 = '未收到货';
+    let logisticsStatusItem2 = '已收到货';
+    let reasons = [
+      "不喜欢/不想要", 
+      "空包裹", 
+      "未按约定时间发货",
+      "快递/物流一直未送达",
+      "货物破损已拒签",
+      "退运费",
+      "规格尺寸与商品页面描述不符",
+      "功能/效果不符",
+      "质量问题",
+      "少件/漏发",
+      "包装/商品破损",
+      "发票问题",
+    ];
+
+    if (i18n.getLanguage() == 'en') {
+      typeItemName1 = 'I want a refund without a return';
+      typeItemName2 = "I'd like to return it for a refund";
+      typeItemName3 = 'I would like to exchange it';
+      logisticsStatusItem1 = 'Not yet received the goods';
+      logisticsStatusItem2 = 'I have received the goods';
+      reasons = [
+        "Don't like it/Don't want it", 
+        "Empty delivery packages", 
+        "The goods were not delivered as scheduled",
+        "The express delivery never arrived",
+        "The cargo damage has been refused",
+        "refund the freight",
+        "The size does not match the description on the product page",
+        "The effect does not match the description on the product page",
+        "Quality problem",
+        "The logistics missed out on some of the goods",
+        "Goods damaged",
+        "Issue of invoice",
+      ];
+    }
+
+    this.setData({
+      typeItems: [
+        { name: typeItemName1, value: '0', checked: true },
+        { name: typeItemName2, value: '1' },
+        { name: typeItemName3, value: '2' },
+      ],
+  
+      logisticsStatus:0,
+      logisticsStatusItems: [
+        { name: logisticsStatusItem1, value: '0', checked: true },
+        { name: logisticsStatusItem2, value: '1' }
+      ],
+  
+      reasons: reasons,
+    });
+    this.setI18nInfo()
   },
   refundApplyCancel(){
     const _this = this
@@ -148,10 +184,10 @@ Page({
     }).then(res => {
       if (res.code == 0) {
         wx.showModal({
-          title: '成功',
-          content: '提交成功，请耐心等待我们处理！',
+          title: i18n._('成功'),
+          content: i18n._('提交成功，请耐心等待我们处理'),
           showCancel: false,
-          confirmText: '我知道了',
+          confirmText: i18n._('确定'),
           success(res) {
             wx.navigateTo({
               url: "/pages/order-list/index"
@@ -160,10 +196,10 @@ Page({
         })
       } else {
         wx.showModal({
-          title: '失败',
+          title: i18n._('失败'),
           content: res.msg,
           showCancel: false,
-          confirmText: '我知道了',
+          confirmText: i18n._('确定'),
           success(res) {
             wx.navigateTo({
               url: "/pages/order-list/index"
@@ -172,5 +208,15 @@ Page({
         })
       }
     })
-  }
+  },
+  setI18nInfo: function() {
+    i18n.setTabBarLanguage()
+    wx.setNavigationBarTitle({
+      title: i18n._('申请售后'),
+    })
+    this.setData({
+      _t: wx.getStorageSync('LanguageMap'),
+      language: i18n.getLanguage()
+    })
+  },
 });

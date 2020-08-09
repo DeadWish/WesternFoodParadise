@@ -7,7 +7,7 @@
   </view>
   <view class="no-order" hidden="{{orderList ? true : false}}">
     <image src="/images/no-order.png" class="no-order-img"></image>
-    <view class="text">暂无订单</view>
+    <view class="text">{{_t['暂无订单'] || '暂无订单'}}</view>
   </view>
   <view class="order-list" hidden="{{orderList ? false : true}}">
     <view class="a-order" wx:for-items="{{orderList}}" wx:key="{{index}}">
@@ -21,9 +21,9 @@
         </view>
       </scroll-view>
       <view class="goods-price">
-        共 {{item.goodsNumber}} 件商品 合计：
+        {{_t['共'] || '共'}}{{item.goodsNumber}}{{_t['件商品'] || '件商品'}} {{_t['合计'] || '合计'}}：
         <text class="p" wx:if="{{item.score <= 0}}">¥ {{item.amountReal}}</text>
-        <text class="p" wx:if="{{item.score > 0}}">¥ {{item.amountReal}} + {{item.score}} 积分</text>
+        <text class="p" wx:if="{{item.score > 0}}">¥ {{item.amountReal}} + {{item.score}} {{_t['积分'] || '积分'}}</text>
       </view>
       <view class="goods-info">
         <view class="goods-des">
@@ -32,9 +32,15 @@
         </view>
       </view>
       <view class="price-box">
-        <view class="btn" hidden="{{item.status==0? false : true}}" bindtap="cancelOrderTap" data-id="{{item.id}}">取消订单</view>
-        <view class="btn active" hidden="{{item.status==0? false : true}}" bindtap="toPayTap" data-id="{{item.id}}" data-money="{{item.amountReal}}" data-score="{{item.score}}">马上付款</view>
-        <view class="btn active" hidden="{{(item.status==0 || item.status==-1) ? true : false}}" bindtap="refundApply" data-id="{{item.id}}" data-amount='{{item.amountReal}}'>退换货</view>
+        <view class="btn" hidden="{{item.status==0? false : true}}" bindtap="cancelOrderTap" data-id="{{item.id}}">
+        {{_t['取消订单'] || '取消订单'}}
+        </view>
+        <view class="btn active" hidden="{{item.status==0? false : true}}" bindtap="toPayTap" data-id="{{item.id}}" data-money="{{item.amountReal}}" data-score="{{item.score}}">
+        {{_t['马上付款'] || '马上付款'}}
+        </view>
+        <view class="btn active" hidden="{{(item.status==0 || item.status==-1) ? true : false}}" bindtap="refundApply" data-id="{{item.id}}" data-amount='{{item.amountReal}}'>
+        {{_t['退换货'] || '退换货'}}
+        </view>
       </view>
     </view>
   </view>

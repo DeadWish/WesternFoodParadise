@@ -1,6 +1,6 @@
 const WXAPI = require('apifm-wxapi')
 const TOOLS = require('../../utils/tools.js')
-
+const i18n = require('../../utils/i18n')
 const app = getApp()
 
 Page({
@@ -41,6 +41,7 @@ Page({
     this.onShow();
   },
   onShow: function() {
+    this.setI18nInfo();
     var shopList = [];
     // 获取购物车数据
     var shopCarInfoMem = wx.getStorageSync('shopCarInfo');
@@ -49,6 +50,7 @@ Page({
     }
     this.data.goodsList.list = shopList;
     this.setGoodsList(this.getSaveHide(), this.totalPrice(), this.allSelect(), this.noSelect(), shopList);
+   
   },
   toIndexPage: function() {
     wx.switchTab({
@@ -306,9 +308,10 @@ Page({
           doneNumber++;
           if (res.data.properties) {
             wx.showModal({
-              title: '提示',
-              content: res.data.basicInfo.name + ' 商品已失效，请重新购买',
-              showCancel: false
+              title: i18n._('提示'),
+              content: res.data.basicInfo.name + '：' + i18n._('商品已失效'),
+              showCancel: false,
+              confirmText: i18n._('确定')
             })
             isFail = true;
             wx.hideLoading();
@@ -316,9 +319,10 @@ Page({
           }
           if (res.data.basicInfo.stores < carShopBean.number) {
             wx.showModal({
-              title: '提示',
-              content: res.data.basicInfo.name + ' 库存不足，请重新购买',
-              showCancel: false
+              title: i18n._('提示'),
+              content: res.data.basicInfo.name + '：' + i18n._('库存不足'),
+              showCancel: false,
+              confirmText: i18n._('确定')
             })
             isFail = true;
             wx.hideLoading();
@@ -326,9 +330,10 @@ Page({
           }
           if (res.data.basicInfo.minPrice != carShopBean.price) {
             wx.showModal({
-              title: '提示',
-              content: res.data.basicInfo.name + ' 价格有调整，请重新购买',
-              showCancel: false
+              title: i18n._('提示'),
+              content: res.data.basicInfo.name + '：' + i18n._('价格有调整，请重新购买'),
+              showCancel: false,
+              confirmText: i18n._('确定')
             })
             isFail = true;
             wx.hideLoading();
@@ -343,9 +348,10 @@ Page({
           doneNumber++;
           if (res.data.stores < carShopBean.number) {
             wx.showModal({
-              title: '提示',
-              content: carShopBean.name + ' 库存不足，请重新购买',
-              showCancel: false
+              title: i18n._('提示'),
+              content: res.data.basicInfo.name + '：' + i18n._('库存不足'),
+              showCancel: false,
+              confirmText: i18n._('确定')
             })
             isFail = true;
             wx.hideLoading();
@@ -353,9 +359,10 @@ Page({
           }
           if (res.data.price != carShopBean.price) {
             wx.showModal({
-              title: '提示',
-              content: carShopBean.name + ' 价格有调整，请重新购买',
-              showCancel: false
+              title: i18n._('提示'),
+              content: res.data.basicInfo.name + '：' + i18n._('价格有调整，请重新购买'),
+              showCancel: false,
+              confirmText: i18n._('确定')
             })
             isFail = true;
             wx.hideLoading();
@@ -374,8 +381,15 @@ Page({
     wx.navigateTo({
       url: "/pages/to-pay-order/index"
     })
-  }
-
-
-
+  },
+  setI18nInfo: function() {
+    i18n.setTabBarLanguage()
+    wx.setNavigationBarTitle({
+      title: i18n._('购物车'),
+    })
+    this.setData({
+      _t: wx.getStorageSync('LanguageMap'),
+      language: i18n.getLanguage()
+    })
+  },
 })
