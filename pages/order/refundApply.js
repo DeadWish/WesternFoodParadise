@@ -37,39 +37,27 @@ Page({
     let logisticsStatusItem1 = '未收到货';
     let logisticsStatusItem2 = '已收到货';
     let reasons = [
-      "不喜欢/不想要", 
       "空包裹", 
-      "未按约定时间发货",
       "快递/物流一直未送达",
       "货物破损已拒签",
-      "退运费",
       "规格尺寸与商品页面描述不符",
-      "功能/效果不符",
       "质量问题",
-      "少件/漏发",
       "包装/商品破损",
-      "发票问题",
     ];
 
     if (i18n.getLanguage() == 'en') {
       typeItemName1 = 'I want a refund without a return';
-      typeItemName2 = "I'd like to return it for a refund";
-      typeItemName3 = 'I would like to exchange it';
-      logisticsStatusItem1 = 'Not yet received the goods';
-      logisticsStatusItem2 = 'I have received the goods';
+      typeItemName2 = "I'd like to return the product for a refund";
+      typeItemName3 = "I'd like to change the product";
+      logisticsStatusItem1 = 'No';
+      logisticsStatusItem2 = 'Yes';
       reasons = [
-        "Don't like it/Don't want it", 
-        "Empty delivery packages", 
-        "The goods were not delivered as scheduled",
-        "The express delivery never arrived",
-        "The cargo damage has been refused",
-        "refund the freight",
-        "The size does not match the description on the product page",
-        "The effect does not match the description on the product page",
+        "Item missing", 
+        "The delivery never arrived",
+        "I refused to accept the damaged package",
+        "The size does't match the description on the product page",
         "Quality problem",
-        "The logistics missed out on some of the goods",
-        "Goods damaged",
-        "Issue of invoice",
+        "Damage packaging",
       ];
     }
 

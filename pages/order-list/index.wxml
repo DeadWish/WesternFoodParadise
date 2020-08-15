@@ -13,7 +13,7 @@
     <view class="a-order" wx:for-items="{{orderList}}" wx:key="{{index}}">
       <navigator url="/pages/order-details/index?id={{item.id}}" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
         <view class="weui-cell__bd">{{item.orderNumber}}</view>
-        <view class="weui-cell__ft weui-cell__ft_in-access">{{item.statusStr}}</view>
+        <view class="weui-cell__ft weui-cell__ft_in-access">{{_t['订单详情'] || '订单详情' }}</view>
       </navigator>
       <scroll-view class="goods-img-container" scroll-x="true">
         <view class="img-box" wx:for-items="{{goodsMap[item.id]}}" wx:key="{{index}}">
@@ -21,7 +21,7 @@
         </view>
       </scroll-view>
       <view class="goods-price">
-        {{_t['共'] || '共'}}{{item.goodsNumber}}{{_t['件商品'] || '件商品'}} {{_t['合计'] || '合计'}}：
+        {{_t['共'] || '共'}}{{' ' + item.goodsNumber + ' '}}{{_t['件商品'] || '件商品'}} {{_t['合计'] || '合计'}}：
         <text class="p" wx:if="{{item.score <= 0}}">¥ {{item.amountReal}}</text>
         <text class="p" wx:if="{{item.score > 0}}">¥ {{item.amountReal}} + {{item.score}} {{_t['积分'] || '积分'}}</text>
       </view>

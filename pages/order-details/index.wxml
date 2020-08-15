@@ -9,7 +9,7 @@
                 <image wx:elif="{{orderDetail.orderInfo.status==3 || orderDetail.orderInfo.status==4}}" class="icon" src="/images/order-details/icon-jycg.png"></image>
             </view>
             <view class="right-text">
-                <view class="status red">{{orderDetail.orderInfo.statusStr}}</view>
+                <view class="status red">{{_t[orderDetail.orderInfo.statusStr] || orderDetail.orderInfo.statusStr}}</view>
                 <view class="des" hidden="true" wx:if="{{language == 'en'}}">Please pay within 12 hours. Any extra orders will be closed automatically</view>
                 <view class="des" hidden="true" wx:else>请于11时59分59秒内付款，超时订单将自动关闭</view>
             </view>

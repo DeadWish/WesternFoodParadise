@@ -163,6 +163,12 @@
   </scroll-view>
 </view>
 <view class='coupons-float' bindtap="exchangeLanguage">
-<view wx:if="{{language == 'en'}}">En</view>
-<view wx:else>中文</view>
+<view wx:if="{{language == 'en'}}">
+<image class="language-img" src="/images/cn.png">
+</image>
+</view>
+<view wx:else>
+<image class="language-img" src="/images/gb.png">
+</image>
+</view>
 </view>

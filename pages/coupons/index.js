@@ -228,7 +228,7 @@ Page({
   setI18nInfo: function() {
     i18n.setTabBarLanguage()
     wx.setNavigationBarTitle({
-      title: i18n._('分类'),
+      title: i18n._('领券中心'),
     })
     this.setData({
       _t: wx.getStorageSync('LanguageMap')
