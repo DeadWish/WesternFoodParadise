@@ -86,7 +86,7 @@ const languageMap = {
   "您还不是分销商，无法使用分销功能" : "You aren’t an ambassador yet,you can’t use the distribution function",
   "申请开通" : "Apply Now",
   "当前语言" : "Language",
-  "退款/售后": "Return&Refund",
+  "退款/售后": "Return & Refund",
   "地道西餐食材店。" : "Our purpose is to provide quality and certified imported food in China at a fair price.",
   "暂无可用优惠券" : "No coupons available",
   "立即领取" : "Receive",

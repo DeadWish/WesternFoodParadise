@@ -22,6 +22,7 @@ page{
 .category-list{
   width:150rpx;
   height:180rpx;
+  min-height:180rpx;
   margin-top:10rpx;
   text-align: center;
   display: inline-block;
@@ -42,6 +43,8 @@ page{
   margin-top:3rpx;
   height: 72rpx;
   line-height: 36rpx;
+  padding-left: 10rpx;
+  padding-right: 10rpx;
 }
 
 .swiper-container{
@@ -336,5 +339,9 @@ image {
   background-color: rgb(107, 107, 107);
   font-size: 14px;
   margin-left: 20px;
+}
+
+.language-img {
+  border-radius: 50%;
 }
 

@@ -190,6 +190,7 @@ swiper-item image {
   color:#e64340;
   left: 85rpx;
   top:10rpx;
+  margin-left: -10rpx;
 }
 .footer-box .join-shop-cart{
   text-align: center;

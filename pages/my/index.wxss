@@ -139,6 +139,8 @@
   margin-left: 45rpx;
 }
 .order-shortcut .item .text {
+  padding-left: 15rpx;
+  padding-right: 15rpx;
   font-size: 12px;
 }
 .to-authorize{
@@ -159,4 +161,7 @@
   line-height: 20px;
   max-width: 55%;
   word-break: break-all;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
 }
