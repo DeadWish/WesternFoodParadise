@@ -57,7 +57,7 @@ Page({
         "I refused to accept the damaged package",
         "The size does't match the description on the product page",
         "Quality problem",
-        "Damage packaging",
+        "Damaged packaging",
       ];
     }
 

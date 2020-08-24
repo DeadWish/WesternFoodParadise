@@ -39,7 +39,7 @@
 </view>
 
 <view class="weui-cells__tips" wx:if='{{language == "en"}}'>
-Please add our customer service WeChat（westernfoodparadise）to check the application progress
+Please add our customer service WeChat（westernfoodparadise）to check the application progress. 
 After becoming our "Foodie Ambassador", you can get commission on each product you sold.
 </view>
 

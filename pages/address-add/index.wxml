@@ -22,7 +22,7 @@
         </view>
         <view class="row-wrap" bindtap="selectCity">
             <view class="label">
-            {{_t['手机号码'] || '手机号码'}}
+            {{_t['选择地区'] || '选择地区'}}
             </view>
             <picker mode="multiSelector" range="{{pickerRegionRange}}" range-key="name" value="{{pickerSelect}}" bindchange="bindchange" bindcolumnchange="bindcolumnchange">
               {{showRegionStr}}

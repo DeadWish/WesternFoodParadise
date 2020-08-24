@@ -87,7 +87,7 @@ const languageMap = {
   "申请开通" : "Apply Now",
   "当前语言" : "Language",
   "退款/售后": "Return & Refund",
-  "地道西餐食材店。" : "Our purpose is to provide quality and certified imported food in China at a fair price.",
+  "地道西餐食材店。" : "Our purpose is to provide quality and certified Western food in China at a fair price.",
   "暂无可用优惠券" : "No coupons available",
   "立即领取" : "Receive",
   "兑换" : "Redeem",
@@ -107,7 +107,7 @@ const languageMap = {
   "详细地址" : "Detailed address",
   "保存": "Save",
   "删除" : "Delete",
-  "姓名" : "Name of contact person",
+  "姓名" : "Name",
   "请选择": "Please select",
   "提示" : "Wraning",
   "请填写完整" : "Please enter completely",
@@ -223,7 +223,7 @@ const languageMap = {
   "如需留言请输入" : "If you want to leave a message, please enter",
   "留言" : "Message",
   "顺丰快递" : "SF Express",
-  "配送方式" : "Type of distribution",
+  "配送方式" : "Delivery type",
   "确认收货" : "Confirm receipt",
   "提交评价" : "Submit evaluation",
   "备注" : "Remark",
@@ -264,7 +264,7 @@ const languageMap = {
   "已发货待确认": "Delivered",
   "退款" : "Refund",
   "退款(原路返回)" : "Refund",
-  "扫码关注您的专属推广码，或者转发邀请好友" : "Download your ambassador QR code or share it with your friends"
+  "扫码关注您的专属推广码，或者转发邀请好友" : "Download your ambassador QR code or share it with your friends to get your commission"
 }
 
 module.exports = {

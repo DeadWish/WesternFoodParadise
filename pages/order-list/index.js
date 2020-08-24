@@ -6,13 +6,35 @@ const i18n = require('../../utils/i18n')
 
 Page({
   data: {
-    // statusType: ["待付款", "待发货", "待收货", "待评价", "已完成", ],
+    statusType: [
+    ],
     hasRefund: false,
     currentType: 0,
-    tabClass: ["", "", "", "", ""]
+    tabClass: ["", "", "", "", ""],
   },
   onShow: function (e) {
-
+    AUTH.checkHasLogined().then(isLogined => {
+      if (isLogined) {
+        this.doneShow();
+      } else {
+        wx.showModal({
+          title: '提示',
+          content: '本次操作需要您的登录授权',
+          cancelText: '暂不登录',
+          confirmText: '前往登录',
+          success(res) {
+            if (res.confirm) {
+              wx.switchTab({
+                url: "/pages/my/index"
+              })
+            } else {
+              wx.navigateBack()
+            }
+          }
+        })
+      }
+    }),
+    this.setI18nInfo()
     this.setData({
       statusType: [
         i18n._("待付款"),
@@ -21,8 +43,7 @@ Page({
         i18n._("待评价"),
         i18n._("已完成"),
       ],
-    })
-    this.setI18nInfo()
+    });
   },
   statusTap: function(e) {
     const curType = e.currentTarget.dataset.index;
@@ -209,30 +230,6 @@ Page({
         });
       }
     })
-  },
-  onShow: function() {
-    AUTH.checkHasLogined().then(isLogined => {
-      if (isLogined) {
-        this.doneShow();
-      } else {
-        wx.showModal({
-          title: '提示',
-          content: '本次操作需要您的登录授权',
-          cancelText: '暂不登录',
-          confirmText: '前往登录',
-          success(res) {
-            if (res.confirm) {
-              wx.switchTab({
-                url: "/pages/my/index"
-              })
-            } else {
-              wx.navigateBack()
-            }
-          }
-        })
-      }
-    }),
-    this.setI18nInfo()
   },
   doneShow: function() {
     // 获取订单列表
