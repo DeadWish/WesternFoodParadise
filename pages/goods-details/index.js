@@ -190,13 +190,6 @@ Page({
    */
   labelItemTap: function(e) {
     var that = this;
-    /*
-    console.log(e)
-    console.log(e.currentTarget.dataset.propertyid)
-    console.log(e.currentTarget.dataset.propertyname)
-    console.log(e.currentTarget.dataset.propertychildid)
-    console.log(e.currentTarget.dataset.propertychildname)
-    */
     // 取消该分类下的子栏目所有的选中状态
     var childs = that.data.goodsDetail.properties[e.currentTarget.dataset.propertyindex].childsCurGoods;
     for (var i = 0; i < childs.length; i++) {
@@ -290,7 +283,6 @@ Page({
       duration: 2000,
       confirmText : i18n._("确定")
     })
-    //console.log(shopCarInfo);
 
     //shopCarInfo = {shopNum:12,shopList:[]}
   },
@@ -300,7 +292,6 @@ Page({
   buyNow: function(e) {
     let that = this
     let shoptype = e.currentTarget.dataset.shoptype
-    console.log(shoptype)
     if (this.data.goodsDetail.properties && !this.data.canSubmit) {
       if (!this.data.canSubmit) {
         wx.showModal({
@@ -626,7 +617,7 @@ Page({
     AUTH.register(this);
   },
   setI18nInfo: function() {
-    i18n.setTabBarLanguage()
+    // i18n.setTabBarLanguage()
     wx.setNavigationBarTitle({
       title: i18n._('商品详情'),
     })

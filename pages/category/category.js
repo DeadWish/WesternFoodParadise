@@ -50,7 +50,6 @@ Page({
           id: categoryId
         }
       });
-      // console.log(categories);
       that.getGoodsList();
     }).catch((e) => {
       wx.hideNavigationBarLoading();
@@ -73,8 +72,6 @@ Page({
         });
         return
       }
-
-      console.log(res.data);
       
       that.setData({
         currentGoods: res.data

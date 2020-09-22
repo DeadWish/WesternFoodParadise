@@ -5,11 +5,6 @@ const i18n = require('./utils/i18n');
 
 App({
   onLaunch: function(e) {
-    //初始化云开发环境
-    wx.cloud.init({
-      env: 'cdyh-online',
-      traceUser: true
-    })
   
     WXAPI.init(CONFIG.subDomain) // 从根目录的 config.js 文件中读取
     const that = this;
@@ -128,7 +123,6 @@ App({
             console.log(err);
           })
 
-          console.log(total, 'total');
           if (total >= 20) {
               return ;//无法继续领取
           }

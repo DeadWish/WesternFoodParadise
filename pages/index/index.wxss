@@ -27,10 +27,11 @@ page{
   text-align: center;
   display: inline-block;
   overflow: hidden;
+  vertical-align: top;
 }
 .category-column{
   width:100%;
-  /* margin-top:10rpx; */
+  height: 90px;
   overflow: hidden;
 }
 .category-imgbox{

@@ -13,6 +13,7 @@ Page({
     allGoodsPrice: 0,
     yunPrice: 0,
     allGoodsAndYunPrice: 0,
+    all:0,
     goodsJsonStr: "",
     orderType: "", //订单类型，购物车下单或立即支付下单，默认是购物车，
     pingtuanOpenId: undefined, //拼团的话记录团号
@@ -201,11 +202,14 @@ Page({
         }
       }
       if (!e) {
+        let allGoodsAndYunPrice = (res.data.amountLogistics + res.data.amountTotle);
+        let all = allGoodsAndYunPrice - that.data.youhuijine
         that.setData({
           totalScoreToPay: res.data.score,
           isNeedLogistics: res.data.isNeedLogistics,
           allGoodsPrice: res.data.amountTotle,
-          allGoodsAndYunPrice: res.data.amountLogistics + res.data.amountTotle,
+          allGoodsAndYunPrice: Number.parseFloat(allGoodsAndYunPrice).toFixed(2),
+          all: Number.parseFloat(all).toFixed(2),
           yunPrice: res.data.amountLogistics
         });
         that.getMyCoupons();
@@ -239,7 +243,6 @@ Page({
     var isNeedLogistics = 0;
     var allGoodsPrice = 0;
 
-
     let inviter_id = 0;
     let inviter_id_storge = wx.getStorageSync('referrer');
     if (inviter_id_storge) {
@@ -259,11 +262,8 @@ Page({
 
       goodsJsonStrTmp += '{"goodsId":' + carShopBean.goodsId + ',"number":' + carShopBean.number + ',"propertyChildIds":"' + carShopBean.propertyChildIds + '","logisticsType":0, "inviter_id":' + inviter_id + '}';
       goodsJsonStr += goodsJsonStrTmp;
-
-
     }
     goodsJsonStr += "]";
-    //console.log(goodsJsonStr);
     that.setData({
       isNeedLogistics: isNeedLogistics,
       goodsJsonStr: goodsJsonStr
@@ -303,16 +303,19 @@ Page({
   },
   bindChangeCoupon: function (e) {
     const selIndex = e.detail.value[0] - 1;
+    var all = this.data.allGoodsAndYunPrice;
     if (selIndex == -1) {
       this.setData({
         youhuijine: 0,
+        all: all,
         curCoupon: null
       });
       return;
     }
-    //console.log("selIndex:" + selIndex);
+    all = this.data.allGoodsAndYunPrice - this.data.coupons[selIndex].money;
     this.setData({
       youhuijine: this.data.coupons[selIndex].money,
+      all: Number.parseFloat(all).toFixed(2),
       curCoupon: this.data.coupons[selIndex]
     });
   },
@@ -335,7 +338,7 @@ Page({
     AUTH.register(this);
   },
   setI18nInfo: function() {
-    i18n.setTabBarLanguage()
+    // i18n.setTabBarLanguage()
     wx.setNavigationBarTitle({
       title: i18n._('待付款订单'),
     })
