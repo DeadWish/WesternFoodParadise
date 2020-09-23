@@ -31,7 +31,7 @@ page{
 }
 .category-column{
   width:100%;
-  /* height: 90px; */
+  height: 90px;
   overflow: hidden;
 }
 .category-imgbox{
